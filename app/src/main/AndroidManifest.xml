@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
-        <activity android:name=".view.ui.splash.SplashActivity"
+        <activity android:name=".view.ui.auth.register.RegisterActivity"></activity>
+        <activity android:name=".view.ui.auth.login.LoginActivity" />
+        <activity
+            android:name=".view.ui.splash.SplashActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.MyEcommerce.NoActionBar">
             <intent-filter>
@@ -18,8 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.main.MainActivity"
-            android:screenOrientation="fullSensor"/>
+        <activity
+            android:name=".view.ui.main.MainActivity"
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>

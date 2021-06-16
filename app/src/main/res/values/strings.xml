@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Ecommerce</string>
+    <string name="content_description">image</string>
+    <string name="title_login">Login</string>
+    <string name="et_hint_email_id">Email ID</string>
+    <string name="et_hint_password">Password</string>
+    <string name="lbl_forgot_password">Forgot Password</string>
+    <string name="btn_lbl_login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account</string>
+    <string name="register">Register</string>
 </resources>
