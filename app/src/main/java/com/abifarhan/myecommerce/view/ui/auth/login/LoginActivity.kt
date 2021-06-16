@@ -1,5 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.auth.login
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityLoginBinding
+import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
     private var _binding: ActivityLoginBinding? = null
@@ -24,5 +26,13 @@ class LoginActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+        binding?.tvRegister?.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@LoginActivity, RegisterActivity::class.java
+                )
+            )
+        }
     }
 }
