@@ -6,12 +6,18 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.abifarhan.myecommerce.R
+import com.abifarhan.myecommerce.databinding.ActivitySplashBinding
 import com.abifarhan.myecommerce.view.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
+
+    private var _binding : ActivitySplashBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        _binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -23,5 +29,10 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             },3000
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
