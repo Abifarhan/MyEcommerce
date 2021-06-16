@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 
 class MSPTextViewBold(context: Context, attributeSet: AttributeSet) :
-    AppCompatButton(context, attributeSet) {
+    AppCompatTextView(context, attributeSet) {
 
         init {
             applyFont()

@@ -9,6 +9,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivitySplashBinding
+import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             },3000
         )
     }
