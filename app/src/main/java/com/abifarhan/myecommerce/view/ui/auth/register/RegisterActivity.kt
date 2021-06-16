@@ -24,5 +24,29 @@ class RegisterActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+        setupActionBar()
+
+        binding?.btnRegister?.setOnClickListener {
+            validateRegisterDetails()
+        }
+    }
+
+    private fun validateRegisterDetails() {
+        TODO("Not yet implemented")
+    }
+
+    private fun setupActionBar() {
+      setSupportActionBar(binding?.toolbarRegisterActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+        }
+
+        binding!!.toolbarRegisterActivity.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 }
