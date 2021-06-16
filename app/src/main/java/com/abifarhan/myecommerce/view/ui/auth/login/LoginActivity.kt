@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
-import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityLoginBinding
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 
