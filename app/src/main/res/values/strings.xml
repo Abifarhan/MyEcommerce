@@ -8,4 +8,12 @@
     <string name="btn_lbl_login">Login</string>
     <string name="don_t_have_an_account">Don\'t have an account</string>
     <string name="register">Register</string>
+    <string name="create_an_account">Make an Account</string>
+    <string name="hint_first_name">First name</string>
+    <string name="hint_last_name">Last name</string>
+    <string name="et_hint_confirm_password">Confirm Password</string>
+    <string name="i_agree_to_the_terms_and_condition">I Aggree</string>
+    <string name="btn_lbl_register">Register</string>
+    <string name="already_have_an_account">Already have an Account</string>
+    <string name="login">Login</string>
 </resources>
