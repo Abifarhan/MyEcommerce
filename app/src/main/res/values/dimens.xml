@@ -16,4 +16,10 @@
     <dimen name="toolbar_title_text_size">16sp</dimen>
     <dimen name="txt_terms_condition_marginStart">25dp</dimen>
     <dimen name="txt_terms_and_condition_textSize">16sp</dimen>
+    <dimen name="progress_dialog_content_padding">10dp</dimen>
+    <dimen name="progress_bar_size">50dp</dimen>
+    <dimen name="progress_text_marginStart">16dp</dimen>
+    <dimen name="progress_text_size">16sp</dimen>
+    <string name="please_wait">Please Wait&#8230;</string>
+
 </resources>

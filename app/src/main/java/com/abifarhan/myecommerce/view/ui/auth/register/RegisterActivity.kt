@@ -9,6 +9,7 @@ import android.view.WindowManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityRegisterBinding
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : BaseActivity() {
     private var _binding: ActivityRegisterBinding? = null
@@ -29,7 +30,32 @@ class RegisterActivity : BaseActivity() {
 //        setupActionBar()
 
         binding.btnRegister.setOnClickListener {
-            validateRegisterDetails()
+//            validateRegisterDetails()
+            registerUser()
+        }
+    }
+
+    private fun registerUser() {
+        if (validateRegisterDetails()) {
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            val email = binding.etEmail.text.toString().trim(){it <= ' '}
+            val password = binding.etPassword.text.toString().trim() {it <= ' '}
+
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    hideProgressDialog()
+                    if (task.isSuccessful) {
+                        val firebaseUser = task.result!!.user!!
+
+                        showErrorSnackBar(
+                            "You are registered successfully. Your user id is ${firebaseUser.uid}",
+                            false
+                        )
+                    } else {
+                        showErrorSnackBar(task.exception!!.message.toString(), true)
+                    }
+                }
         }
     }
 
