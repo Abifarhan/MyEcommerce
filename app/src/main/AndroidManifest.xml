@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
-        <activity android:name=".view.ui.auth.register.RegisterActivity"></activity>
+        <activity android:name=".view.ui.auth.register.RegisterActivity"
+            android:theme="@style/Theme.MyEcommerce.NoActionBar"/>
         <activity android:name=".view.ui.auth.login.LoginActivity" />
         <activity
             android:name=".view.ui.splash.SplashActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.MyEcommerce.NoActionBar">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

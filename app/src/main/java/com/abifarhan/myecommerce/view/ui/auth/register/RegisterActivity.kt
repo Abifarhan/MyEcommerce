@@ -27,12 +27,14 @@ class RegisterActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-//        setupActionBar()
+        setupActionBar()
 
         binding.btnRegister.setOnClickListener {
 //            validateRegisterDetails()
             registerUser()
         }
+
+//        binding.tvLogin.setONC.ik
     }
 
     private fun registerUser() {
@@ -52,6 +54,7 @@ class RegisterActivity : BaseActivity() {
                             "You are registered successfully. Your user id is ${firebaseUser.uid}",
                             false
                         )
+                        finish()
                     } else {
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
@@ -102,17 +105,17 @@ class RegisterActivity : BaseActivity() {
         }
     }
 
-//    private fun setupActionBar() {
-//      setSupportActionBar(binding?.toolbarRegisterActivity)
-//
-//        val actionBar = supportActionBar
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true)
-//            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
-//        }
-//
-//        binding!!.toolbarRegisterActivity.setNavigationOnClickListener {
-//            onBackPressed()
-//        }
-//    }
+    private fun setupActionBar() {
+      setSupportActionBar(binding?.toolbarRegisterActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+        }
+
+        binding!!.toolbarRegisterActivity.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
 }
