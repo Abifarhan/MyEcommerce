@@ -24,5 +24,8 @@
     <string name="err_msg_enter_confirm_password">Please enter confirm password.</string>
     <string name="err_msg_password_and_confirm_password_mismatch">Password and confirm password does not match.</string>
     <string name="err_msg_agree_terms_and_condition">Please agree terms and condition.</string>
+    <string name="title_forgot_password">Forget Password</string>
+    <string name="forgot_password_title_description">Enter your username and email Address</string>
+    <string name="btn_lbl_submit">Submit</string>
 
 </resources>

@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/content_description"
             android:scaleType="fitXY"
-            android:src="@color/colorThemeGreenGrey" />
+            android:src="@color/colorThemeGreen" />
 
         <ImageView
             android:layout_width="@dimen/auth_logo_width_size"
@@ -28,8 +28,8 @@
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@color/colorThemeGreen"
-            />
+            android:src="@color/colorThemeGreenGrey"
+            app:tint="@color/colorWhite" />
     </FrameLayout>
 
     <com.abifarhan.myecommerce.utils.MSPTextViewBold
@@ -146,7 +146,7 @@
             android:textColor="@color/colorSecondaryText"
             android:textSize="@dimen/lbl_text_view_textSize" />
 
-        <com.abifarhan.myecommerce.utils.MSPTextViewBold
+        <com.abifarhan.myecommerce.utils.MSPTextView
             android:id="@+id/tv_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

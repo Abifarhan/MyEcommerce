@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityLoginBinding
+import com.abifarhan.myecommerce.view.ui.auth.forgotpassword.ForgotPasswordActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
@@ -32,6 +33,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         binding.tvForgotPassword.setOnClickListener(this)
         binding.btnLogin.setOnClickListener(this)
         binding.tvRegister.setOnClickListener(this)
+        binding.tvForgotPassword.setOnClickListener(this)
     }
 
     override fun onDestroy() {
@@ -43,10 +45,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
 
-                R.id.tv_forgot_password -> {
-
-                }
-
                 R.id.btn_login -> {
                     validateLoginDetails()
                 }
@@ -55,6 +53,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     Intent(
                         this@LoginActivity,
                         RegisterActivity::class.java
+                    )
+                )
+
+                R.id.tv_forgot_password ->startActivity(
+                    Intent(
+                        this@LoginActivity,
+                        ForgotPasswordActivity::class.java
                     )
                 )
             }
