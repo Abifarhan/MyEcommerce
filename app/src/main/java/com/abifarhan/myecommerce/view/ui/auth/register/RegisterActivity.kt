@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityRegisterBinding
+import com.abifarhan.myecommerce.firestore.FirestoreClass
+import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,8 +44,8 @@ class RegisterActivity : BaseActivity() {
         if (validateRegisterDetails()) {
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email = binding.etEmail.text.toString().trim(){it <= ' '}
-            val password = binding.etPassword.text.toString().trim() {it <= ' '}
+            val email = binding.etEmail.text.toString().trim() { it <= ' ' }
+            val password = binding.etPassword.text.toString().trim() { it <= ' ' }
 
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -50,12 +53,16 @@ class RegisterActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         val firebaseUser = task.result!!.user!!
 
-                        showErrorSnackBar(
-                            "You are registered successfully. Your user id is ${firebaseUser.uid}",
-                            false
+                        val user = User(
+                            firebaseUser.uid,
+                            binding.etFirstName.text.toString().trim() { it <= ' ' },
+                            binding.etLastName.text.toString().trim() { it <= ' '},
+                            binding.etEmail.text.toString().trim() { it <= ' '}
                         )
-                        finish()
+
+                        FirestoreClass().registerUser(this@RegisterActivity, user)
                     } else {
+                        hideProgressDialog()
                         showErrorSnackBar(task.exception!!.message.toString(), true)
                     }
                 }
@@ -63,19 +70,19 @@ class RegisterActivity : BaseActivity() {
     }
 
     private fun validateRegisterDetails(): Boolean {
-        return when{
-            TextUtils.isEmpty(binding.etFirstName.text.toString().trim() {it <= ' '}) -> {
+        return when {
+            TextUtils.isEmpty(binding.etFirstName.text.toString().trim() { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
                 false
             }
 
-            TextUtils.isEmpty(binding.etLastName.text.toString().trim() {it <= ' '}) -> {
+            TextUtils.isEmpty(binding.etLastName.text.toString().trim() { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
                 false
             }
 
-            TextUtils.isEmpty(binding.etEmail.text.toString().trim() { it <= ' '}) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email),true)
+            TextUtils.isEmpty(binding.etEmail.text.toString().trim() { it <= ' ' }) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
 
@@ -85,17 +92,27 @@ class RegisterActivity : BaseActivity() {
             }
 
             TextUtils.isEmpty(binding.etConfirmPassword.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_confirm_password), true)
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_confirm_password),
+                    true
+                )
                 false
             }
 
-            binding.etPassword.text.toString().trim { it <= ' ' } != binding!!.etConfirmPassword.text.toString()
+            binding.etPassword.text.toString()
+                .trim { it <= ' ' } != binding!!.etConfirmPassword.text.toString()
                 .trim { it <= ' ' } -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_password_and_confirm_password_mismatch), true)
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_password_and_confirm_password_mismatch),
+                    true
+                )
                 false
             }
             !binding.cbTermsAndCondition.isChecked -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_agree_terms_and_condition), true)
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_agree_terms_and_condition),
+                    true
+                )
                 false
             }
             else -> {
@@ -106,7 +123,7 @@ class RegisterActivity : BaseActivity() {
     }
 
     private fun setupActionBar() {
-      setSupportActionBar(binding?.toolbarRegisterActivity)
+        setSupportActionBar(binding?.toolbarRegisterActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -117,5 +134,15 @@ class RegisterActivity : BaseActivity() {
         binding!!.toolbarRegisterActivity.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
+
+    fun userRegistrationSuccess() {
+        hideProgressDialog()
+
+        Toast.makeText(this@RegisterActivity, "You are registered successfully", Toast.LENGTH_SHORT)
+            .show()
+
+        FirebaseAuth.getInstance().signOut()
+        finish()
     }
 }
