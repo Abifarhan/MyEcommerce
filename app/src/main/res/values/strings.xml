@@ -28,5 +28,7 @@
     <string name="forgot_password_title_description">Enter your username and email Address</string>
     <string name="btn_lbl_submit">Submit</string>
     <string name="email_sent_success">\"Email sent successfully to reset your password! \"</string>
+    <string name="title_complete_profile">Complete Profile</string>
+    <string name="et_hint_mobile_number">Your Mobile Number</string>
 
 </resources>

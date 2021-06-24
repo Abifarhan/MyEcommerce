@@ -22,6 +22,9 @@
     <dimen name="progress_text_size">16sp</dimen>
     <dimen name="forgot_password_title_textSize">18sp</dimen>
     <dimen name="forgot_password_title_description_textSize">14sp</dimen>
+    <dimen name="profile_user_image_size">150dp</dimen>
+    <dimen name="profile_user_image_marginTop">50dp</dimen>
+    <dimen name="profile_user_photo_margin">3dp</dimen>
     <string name="please_wait">Please Wait&#8230;</string>
 
 </resources>
