@@ -1,6 +1,8 @@
 package com.abifarhan.myecommerce.firestore
 
 import android.app.Activity
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
@@ -48,12 +50,40 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
 
                 val user = document.toObject(User::class.java)
+                Log.d(this.toString(),"ini data toObject Anda $user")
+
+                val sharedPrefences =
+                    activity.getSharedPreferences(
+                        Constants.MYSHOPPAL_PREFERENCES,
+                        Context.MODE_PRIVATE
+                    )
+
+                val editor: SharedPreferences.Editor
+                = sharedPrefences.edit()
+                editor.putString(
+                    Constants.LOGGED_IN_USERNAME,
+                    "${user!!.firstName} ${user.lastName}"
+                )
+                editor.apply()
 
                 when (activity) {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
                     }
                 }
+            }
+            .addOnFailureListener { e ->
+                when (activity) {
+                    is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while getting user details.",
+                    e
+                )
             }
     }
 
