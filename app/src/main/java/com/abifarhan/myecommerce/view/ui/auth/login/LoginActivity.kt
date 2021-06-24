@@ -17,6 +17,7 @@ import com.abifarhan.myecommerce.view.ui.auth.forgotpassword.ForgotPasswordActiv
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.abifarhan.myecommerce.view.ui.main.MainActivity
+import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -116,8 +117,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         Log.i("Last Name: ", user.lastName)
         Log.i("Email: ", user.email)
 
-        startActivity(Intent(this@LoginActivity,
-        MainActivity::class.java))
+        if (user.profileCompleted == 0) {
+            val intent = Intent(this@LoginActivity,
+            UserProfileActivity::class.java)
+            startActivity(intent)
+        } else{
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
+
         finish()
     }
 }

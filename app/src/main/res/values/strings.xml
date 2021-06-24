@@ -30,5 +30,8 @@
     <string name="email_sent_success">\"Email sent successfully to reset your password! \"</string>
     <string name="title_complete_profile">Complete Profile</string>
     <string name="et_hint_mobile_number">Your Mobile Number</string>
+    <string name="btn_lbl_save">Save</string>
+    <string name="rb_lbl_male">Male</string>
+    <string name="rb_lbl_female">Female</string>
 
 </resources>
