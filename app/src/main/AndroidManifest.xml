@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
         <activity android:name=".view.ui.profile.UserProfileActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.MyEcommerce.NoActionBar"/>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".view.ui.auth.forgotpassword.ForgotPasswordActivity"

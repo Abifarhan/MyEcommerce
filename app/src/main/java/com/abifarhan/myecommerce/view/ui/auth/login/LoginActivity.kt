@@ -13,6 +13,7 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityLoginBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
+import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.forgotpassword.ForgotPasswordActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
@@ -120,6 +121,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (user.profileCompleted == 0) {
             val intent = Intent(this@LoginActivity,
             UserProfileActivity::class.java)
+            intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             startActivity(intent)
         } else{
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
