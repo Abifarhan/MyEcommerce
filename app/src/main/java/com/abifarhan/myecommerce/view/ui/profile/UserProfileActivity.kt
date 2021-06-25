@@ -14,41 +14,48 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityUserProfileBinding
+import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.main.MainActivity
 import java.io.IOException
 import java.util.jar.Manifest
 
 class UserProfileActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityUserProfileBinding
 
+    private lateinit var mUserDetails: User
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var userDetail: User = User()
+//        var userDetail: User = User()
+
+
         if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
-            userDetail = intent.getParcelableExtra(
+            mUserDetails = intent.getParcelableExtra(
                 Constants.EXTRA_USER_DETAILS
             )!!
         }
 
         binding.etFirstName.apply {
             isEnabled = false
-            setText(userDetail.firstName)
+            setText(mUserDetails.firstName)
         }
 
         binding.etLastName.apply {
             isEnabled = false
-            setText(userDetail.lastName)
+            setText(mUserDetails.lastName)
         }
 
         binding!!.etEmail.apply {
             isEnabled = false
-            setText(userDetail.email)
+            setText(mUserDetails.email)
         }
 
         binding.ivUserPhoto.setOnClickListener(this)
@@ -79,7 +86,30 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
                 R.id.btn_submit ->{
                     if (validateUserProfileDetails()) {
-                        showErrorSnackBar("Your details are valid. You can update them.",false)
+//                        showErrorSnackBar("Your details are valid. You can update them.",false)
+
+                        val userHashMap = HashMap<String, Any>()
+
+                        val mobileNumber = binding.etMobileNumber.text.toString().trim() {it <= ' '}
+
+                        val gender = if (binding.rbMale.isChecked) {
+                            Constants.MALE
+                        } else{
+                            Constants.FEMALE
+                        }
+
+                        if (mobileNumber.isNotEmpty()) {
+                            userHashMap[Constants.MOBILE]= mobileNumber.toLong()
+                        }
+
+                        userHashMap[Constants.GENDER] = gender
+
+                        showProgressDialog(resources.getString(R.string.please_wait))
+
+                        FirestoreClass().updateUserProfileData(
+                            this@UserProfileActivity,
+                            userHashMap
+                        )
                     }
                 }
             }
@@ -147,7 +177,8 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateUserProfileDetails(): Boolean{
         return when{
-            TextUtils.isEmpty(binding.etMobileNumber.text.toString().trim() {it <= ' '}) ->{
+            TextUtils.isEmpty(
+                binding.etMobileNumber.text.toString().trim() {it <= ' '}) ->{
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
                 false
             }
@@ -156,5 +187,18 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
                 true
             }
         }
+    }
+
+    fun userProfileUpdateSuccess() {
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@UserProfileActivity,
+            resources.getString(R.string.msg_profile_update_success),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
+        finish()
     }
 }

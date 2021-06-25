@@ -8,6 +8,7 @@ import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
+import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -26,18 +27,20 @@ class FirestoreClass {
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName,
-                "Error while registering.",
-                e)
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while registering.",
+                    e
+                )
             }
     }
 
-    fun getCurrentUserID(): String{
+    fun getCurrentUserID(): String {
         val currentUser = FirebaseAuth.getInstance().currentUser
 
         var currentUserID = ""
         if (currentUser != null) {
-                currentUserID = currentUser.uid
+            currentUserID = currentUser.uid
         }
         return currentUserID
     }
@@ -50,7 +53,7 @@ class FirestoreClass {
                 Log.i(activity.javaClass.simpleName, document.toString())
 
                 val user = document.toObject(User::class.java)
-                Log.d(this.toString(),"ini data toObject Anda $user")
+                Log.d(this.toString(), "ini data toObject Anda $user")
 
                 val sharedPrefences =
                     activity.getSharedPreferences(
@@ -58,8 +61,7 @@ class FirestoreClass {
                         Context.MODE_PRIVATE
                     )
 
-                val editor: SharedPreferences.Editor
-                = sharedPrefences.edit()
+                val editor: SharedPreferences.Editor = sharedPrefences.edit()
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
                     "${user!!.firstName} ${user.lastName}"
@@ -83,6 +85,36 @@ class FirestoreClass {
                     activity.javaClass.simpleName,
                     "Error while getting user details.",
                     e
+                )
+            }
+    }
+
+    fun updateUserProfileData(
+        activity: Activity,
+        userHashMap: HashMap<String, Any>
+    ) {
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+
+                when (activity) {
+                    is UserProfileActivity ->{
+                        activity.userProfileUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when (activity) {
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while updating the user details.",
+                    it
                 )
             }
     }

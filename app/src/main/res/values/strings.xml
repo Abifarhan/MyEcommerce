@@ -36,5 +36,6 @@
     <string name="read_storage_permission_denied">You just reject</string>
     <string name="image_selection_failed">Failed take image</string>
     <string name="err_msg_enter_mobile_number">Enter your mobile number</string>
+    <string name="msg_profile_update_success">Your profile update</string>
 
 </resources>
