@@ -34,5 +34,6 @@
     <string name="rb_lbl_male">Male</string>
     <string name="rb_lbl_female">Female</string>
     <string name="read_storage_permission_denied">You just reject</string>
+    <string name="image_selection_failed">Failed take image</string>
 
 </resources>
