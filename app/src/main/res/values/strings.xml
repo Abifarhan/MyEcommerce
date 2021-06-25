@@ -33,5 +33,6 @@
     <string name="btn_lbl_save">Save</string>
     <string name="rb_lbl_male">Male</string>
     <string name="rb_lbl_female">Female</string>
+    <string name="read_storage_permission_denied">You just reject</string>
 
 </resources>
