@@ -15,6 +15,7 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityUserProfileBinding
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
+import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import java.io.IOException
 import java.util.jar.Manifest
@@ -55,7 +56,6 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-
                 R.id.iv_user_photo -> {
                     if (ContextCompat.checkSelfPermission(
                             this,
@@ -84,8 +84,11 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode ==
+            Constants.READ_STORAGE_PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() &&
+                grantResults[0] ==
+                PackageManager.PERMISSION_GRANTED) {
 //                showErrorSnackBar("The storage permission is granted.", false)
                 Constants.showImageChooser(this@UserProfileActivity)
             } else {
@@ -100,17 +103,24 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
                 if (data != null) {
                     try {
                         val selectedImageFileUri = data.data!!
 
-                        binding.ivUserPhoto.setImageURI(
-                            Uri.parse(
-                                selectedImageFileUri.toString()
+//                        binding.ivUserPhoto.setImageURI(
+//                            Uri.parse(
+//                                selectedImageFileUri.toString()
+//                            )
+//                        )
+
+                        GlideLoader(this@UserProfileActivity)
+                            .loadUserPicture(
+                                selectedImageFileUri,
+                                binding.ivUserPhoto
                             )
-                        )
                     } catch (e: IOException) {
                         e.printStackTrace()
                         Toast.makeText(
