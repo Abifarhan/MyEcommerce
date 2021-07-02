@@ -9,8 +9,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityDashBoardBinding
+import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
-class DashBoardActivity : AppCompatActivity() {
+class DashBoardActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDashBoardBinding
 
@@ -32,5 +33,9 @@ class DashBoardActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onBackPressed() {
+        doubleBackToExit()
     }
 }
