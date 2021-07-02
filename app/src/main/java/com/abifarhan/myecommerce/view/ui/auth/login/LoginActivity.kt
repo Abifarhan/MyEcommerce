@@ -17,6 +17,7 @@ import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.forgotpassword.ForgotPasswordActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.DashBoardActivity
 import com.abifarhan.myecommerce.view.ui.main.MainActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -124,7 +125,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             startActivity(intent)
         } else{
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            startActivity(Intent(this@LoginActivity, DashBoardActivity::class.java))
         }
 
         finish()

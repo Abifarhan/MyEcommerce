@@ -145,4 +145,9 @@ class RegisterActivity : BaseActivity() {
         FirebaseAuth.getInstance().signOut()
         finish()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

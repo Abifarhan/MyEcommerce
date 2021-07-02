@@ -37,5 +37,9 @@
     <string name="image_selection_failed">Failed take image</string>
     <string name="err_msg_enter_mobile_number">Enter your mobile number</string>
     <string name="msg_profile_update_success">Your profile update</string>
+    <string name="title_activity_dash_board">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>
