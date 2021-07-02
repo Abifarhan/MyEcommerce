@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.abifarhan.myecommerce.databinding.FragmentHomeBinding
+import com.abifarhan.myecommerce.databinding.FragmentProductsBinding
 
-class HomeFragment : Fragment() {
+class ProductsFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentProductsBinding? = null
 
     private val binding get() = _binding!!
 
@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentProductsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         binding.textHome.text = "This is home Fragment"

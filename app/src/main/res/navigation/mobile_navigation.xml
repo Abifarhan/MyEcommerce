@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.abifarhan.myecommerce.view.ui.dashboard.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@+id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -18,8 +12,14 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.abifarhan.myecommerce.view.ui.dashboard.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_product"
+        android:name="com.abifarhan.myecommerce.view.ui.dashboard.ui.home.ProductsFragment"
+        android:label="@string/title_product"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="com.abifarhan.myecommerce.view.ui.dashboard.ui.notifications.OrdersFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_orders" />
 </navigation>
