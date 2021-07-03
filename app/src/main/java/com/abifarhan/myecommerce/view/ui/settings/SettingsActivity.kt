@@ -1,16 +1,20 @@
 package com.abifarhan.myecommerce.view.ui.settings
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivitySettingsBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.GlideLoader
+import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.google.firebase.auth.FirebaseAuth
 
-class SettingsActivity : BaseActivity() {
+class SettingsActivity : BaseActivity(), View.OnClickListener {
     private var _binding: ActivitySettingsBinding? = null
     private val binding get() = _binding!!
 
@@ -20,6 +24,7 @@ class SettingsActivity : BaseActivity() {
         setContentView(binding.root)
         setupActionBar()
 //        actionBar?.hide()
+        binding.btnLogout.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -33,10 +38,9 @@ class SettingsActivity : BaseActivity() {
             )
         }
 
-        binding.toolbarSettingsActivity.
-                setNavigationOnClickListener {
-                    onBackPressed()
-                }
+        binding.toolbarSettingsActivity.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun getUserDetails() {
@@ -60,5 +64,27 @@ class SettingsActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         getUserDetails()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+
+            R.id.tv_edit -> {
+
+            }
+
+            R.id.btn_logout -> {
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(
+                    this@SettingsActivity,
+                    LoginActivity::class.java
+                )
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+        }
+
     }
 }
