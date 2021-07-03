@@ -9,14 +9,17 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivitySettingsBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
+import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class SettingsActivity : BaseActivity(), View.OnClickListener {
     private var _binding: ActivitySettingsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var mUserDetails: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
 //        actionBar?.hide()
         binding.btnLogout.setOnClickListener(this)
+        binding.tvEdit.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -49,6 +53,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun userDetailsSuccess(user: User) {
+        mUserDetails = user
         hideProgressDialog()
 
         GlideLoader(this@SettingsActivity)
@@ -70,7 +75,10 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
 
             R.id.tv_edit -> {
-
+                val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
+                intent.putExtra(Constants.EXTRA_USER_DETAILS,
+                mUserDetails)
+                startActivity(intent)
             }
 
             R.id.btn_logout -> {
