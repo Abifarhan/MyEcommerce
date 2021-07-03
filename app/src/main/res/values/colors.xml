@@ -20,4 +20,6 @@
 
     <color name="colorThemeGreen">#E4F2D5</color>
     <color name="colorThemeGreenGrey">#BAD99C</color>
+    <color name="colorBorder">#CDCBCB</color>
+    <color name="colorDarkGrey">#7A7979</color>
 </resources>

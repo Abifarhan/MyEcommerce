@@ -44,5 +44,8 @@
     <string name="title_product">Products</string>
     <string name="title_orders">Orders</string>
     <string name="title_settings">Seetings</string>
+    <string name="btn_lbl_logout">Logout</string>
+    <string name="lbl_addresses">Addresses</string>
+    <string name="lbl_edit">Edit</string>
 
 </resources>

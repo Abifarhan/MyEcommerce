@@ -18,4 +18,14 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.Settings" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <color name="colorPrimary">#534C4B</color>
+    <color name="colorPrimaryDark">#6F5856</color>
+    <color name="colorAccent">#CBBAB8</color>
 </resources>
