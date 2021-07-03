@@ -10,6 +10,7 @@ import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
+import com.abifarhan.myecommerce.view.ui.settings.SettingsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -75,11 +76,19 @@ class FirestoreClass {
                     is LoginActivity -> {
                         activity.userLoggedInSuccess(user)
                     }
+
+                    is SettingsActivity ->{
+                        activity.userDetailsSuccess(user)
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 when (activity) {
                     is LoginActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+                    is SettingsActivity -> {
                         activity.hideProgressDialog()
                     }
                 }

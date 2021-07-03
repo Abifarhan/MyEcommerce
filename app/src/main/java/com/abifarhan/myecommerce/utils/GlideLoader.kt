@@ -10,12 +10,12 @@ import java.io.IOException
 class GlideLoader(val context: Context) {
 
     fun loadUserPicture(
-        imageURI: Uri,
+        imageURI: Any,
         imageView: ImageView
     ) {
         try {
             Glide.with(context)
-                .load(Uri.parse(imageURI.toString()))
+                .load(imageURI)
                 .centerCrop()
                 .placeholder(R.color.colorThemeGreen)
                 .into(imageView)
