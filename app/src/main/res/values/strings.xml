@@ -43,5 +43,6 @@
     <string name="title_notifications">Notification</string>
     <string name="title_product">Products</string>
     <string name="title_orders">Orders</string>
+    <string name="title_settings">Seetings</string>
 
 </resources>
