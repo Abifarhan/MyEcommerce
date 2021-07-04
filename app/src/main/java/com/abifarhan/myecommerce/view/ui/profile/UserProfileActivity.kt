@@ -19,6 +19,7 @@ import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.DashBoardActivity
 import com.abifarhan.myecommerce.view.ui.main.MainActivity
 import java.io.IOException
 import java.util.jar.Manifest
@@ -47,20 +48,47 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             )!!
         }
 
-        binding.etFirstName.apply {
-            isEnabled = false
-            setText(mUserDetails.firstName)
+        if (mUserDetails.profileCompleted == 0) {
+            binding.etFirstName.apply {
+                isEnabled = false
+                setText(mUserDetails.firstName)
+            }
+
+            binding.etLastName.apply {
+                isEnabled = false
+                setText(mUserDetails.lastName)
+            }
+
+            binding.etEmail.apply {
+                isEnabled = false
+                setText(mUserDetails.email)
+            }
+        }else{
+//            setupActionBar()
+
+            GlideLoader(this).loadUserPicture(mUserDetails.image, binding.ivUserPhoto)
+
+            binding.etFirstName.setText(mUserDetails.firstName)
+            binding.etLastName.setText(mUserDetails.lastName)
+
+            binding.etEmail.apply {
+                isEnabled = false
+                setText(mUserDetails.email)
+            }
+
+            if (mUserDetails.mobile != 0L) {
+                binding.etMobileNumber.setText(mUserDetails.mobile.toString())
+            }
+
+            if (mUserDetails.gender == Constants.MALE) {
+                binding.rbMale.isChecked = true
+            } else {
+                binding.rbFemale.isChecked = true
+            }
         }
 
-        binding.etLastName.apply {
-            isEnabled = false
-            setText(mUserDetails.lastName)
-        }
 
-        binding!!.etEmail.apply {
-            isEnabled = false
-            setText(mUserDetails.email)
-        }
+
 
         binding.ivUserPhoto.setOnClickListener(this)
         binding.btnSubmit.setOnClickListener(this@UserProfileActivity)
@@ -199,7 +227,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             Toast.LENGTH_SHORT
         ).show()
 
-        startActivity(Intent(this@UserProfileActivity, MainActivity::class.java))
+        startActivity(Intent(this@UserProfileActivity, DashBoardActivity::class.java))
         finish()
     }
 
@@ -221,6 +249,15 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
     private fun updateUserProfileDetails() {
         val userHashMap = HashMap<String, Any>()
 
+        val firstName = binding.etFirstName.text.toString().trim() {it <= ' '}
+        if (firstName != mUserDetails.firstName) {
+            userHashMap[Constants.FIRST_NAME] = firstName
+        }
+
+        val lastName = binding.etLastName.text.toString().trim() {it <= ' '}
+        if (firstName != mUserDetails.lastName) {
+            userHashMap[Constants.LAST_NAME] = lastName
+        }
         val mobileNumber = binding.etMobileNumber.text.toString().trim() { it <= ' ' }
 
         val gender = if (binding.rbMale.isChecked) {
@@ -232,13 +269,18 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         if (mUserProfileImageURL.isNotEmpty()) {
             userHashMap[Constants.IMAGE] = mUserProfileImageURL
         }
-        if (mobileNumber.isNotEmpty()) {
+        if (mobileNumber.isNotEmpty() && mobileNumber != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = mobileNumber.toLong()
         }
 
-        userHashMap[Constants.GENDER] = gender
+        if (gender.isNotEmpty() && gender != mUserDetails.gender) {
+            userHashMap[Constants.GENDER] = gender
+        }
+//        userHashMap[Constants.GENDER] = gender
 
-        userHashMap[Constants.COMPLETE_PROFILE] = 1
+        if (mUserDetails.profileCompleted == 0) {
+            userHashMap[Constants.COMPLETE_PROFILE] = 1
+        }
 
 //        showProgressDialog(resources.getString(R.string.please_wait))
 
@@ -247,4 +289,16 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
             userHashMap
         )
     }
+
+//    private fun setupActionBar() {
+//        setSupportActionBar(binding.toolbarUserProfileActivity)
+//        val actionBar = supportActionBar
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true)
+//            actionBar.setHomeAsUpIndicator(
+//                R.drawable.ic_baseline_arrow_back_ios_24
+//            )
+//        }
+//        binding.toolbarUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
+//    }
 }
