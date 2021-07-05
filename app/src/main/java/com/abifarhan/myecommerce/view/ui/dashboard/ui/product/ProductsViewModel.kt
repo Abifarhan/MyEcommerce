@@ -1,4 +1,4 @@
-package com.abifarhan.myecommerce.view.ui.dashboard.ui.home
+package com.abifarhan.myecommerce.view.ui.dashboard.ui.product
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
