@@ -11,6 +11,7 @@ import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
@@ -211,33 +212,68 @@ class FirestoreClass {
     fun getProductList(fragment: Fragment) {
         mFireStore.collection(Constants.PRODUCTS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
-            .get()
+            .get() // Will get the documents snapshots.
             .addOnSuccessListener { document ->
 
-                val productList: ArrayList<Product> = ArrayList()
+                // Here we get the list of boards in the form of documents.
+                Log.e("Products List", "ini produk Anda ${document.documents.toString()}")
 
+                // Here we have created a new instance for Products ArrayList.
+                val productsList: ArrayList<Product> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
                 for (i in document.documents) {
+
                     val product = i.toObject(Product::class.java)
                     product!!.productId = i.id
 
-                    productList.add(product)
+                    productsList.add(product)
                 }
 
                 when (fragment) {
-                    is ProductsFragment ->{
-                        fragment.successProductsListFromFirestore(
-                            productList
-                        )
+                    is ProductsFragment -> {
+                        fragment.successProductsListFromFireStore(
+                            productsList)
                     }
                 }
             }
-            .addOnFailureListener {
-                when(fragment) {
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error based on the base class instance.
+                when (fragment) {
                     is ProductsFragment -> {
                         fragment.hideProgressDialog()
                     }
                 }
-                Log.e("Get Product List", "Error while getting product list.", it)
+                Log.e("Get Product List", "Error while getting product list.", e)
+            }
+    }
+
+    fun getDashboardItemsList(fragment: DashboardFragment) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .get() // Will get the documents snapshots.
+            .addOnSuccessListener { document ->
+
+                // Here we get the list of boards in the form of documents.
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+
+                // Here we have created a new instance for Products ArrayList.
+                val productsList: ArrayList<Product> = ArrayList()
+
+                // A for loop as per the list of documents to convert them into Products ArrayList.
+                for (i in document.documents) {
+
+                    val product = i.toObject(Product::class.java)!!
+                    product.productId = i.id
+                    productsList.add(product)
+                }
+
+                // Pass the success result to the base fragment.
+                fragment.successDashboardItemsList(productsList)
+            }
+            .addOnFailureListener { e ->
+                // Hide the progress dialog if there is any error which getting the dashboard items list.
+                fragment.hideProgressDialog()
+                Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
             }
     }
 }

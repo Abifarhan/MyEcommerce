@@ -2,6 +2,7 @@ package com.abifarhan.myecommerce.view.ui.dashboard.ui.product
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,83 +13,88 @@ import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.view.ui.base.BaseFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
+import kotlinx.android.synthetic.main.fragment_products.*
 import java.util.ArrayList
 
 class ProductsFragment : BaseFragment() {
 
-    private var _binding: FragmentProductsBinding? = null
-
-    private val binding get() = _binding!!
+    private lateinit var mRootView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProductsBinding.inflate(inflater, container, false)
-        return binding.root
-
+    ): View? {
+        mRootView = inflater.inflate(R.layout.fragment_products, container, false)
+        return mRootView
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_product_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onResume() {
-        super.onResume()
-        getProductListFromFirestore()
-    }
-
-    private fun getProductListFromFirestore() {
-        showProgressDialog(resources.getString(R.string.please_wait))
-
-        FirestoreClass().getProductList(this@ProductsFragment)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
+
         if (id == R.id.action_add_product) {
             startActivity(Intent(activity, AddProductActivity::class.java))
             return true
         }
         return super.onOptionsItemSelected(item)
     }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+
+    override fun onResume() {
+        super.onResume()
+
+        getProductListFromFireStore()
     }
 
-    fun successProductsListFromFirestore(productList: ArrayList<Product>) {
+    private fun getProductListFromFireStore() {
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        // Call the function of Firestore class.
+        FirestoreClass().getProductList(
+            this@ProductsFragment)
+    }
+
+
+    fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
+
         hideProgressDialog()
 
-        if (productList.size > 0) {
-            binding.rvMyProductItems.visibility = View.VISIBLE
-            binding.tvNoProductsFound.visibility = View.GONE
+        if (productsList.size > 0) {
+            rv_my_product_items.visibility = View.VISIBLE
+            tv_no_products_found.visibility = View.GONE
 
-            binding.rvMyProductItems.layoutManager = LinearLayoutManager(activity)
-            binding.rvMyProductItems.setHasFixedSize(true)
+            rv_my_product_items.layoutManager =
+                LinearLayoutManager(activity)
+            rv_my_product_items.setHasFixedSize(true)
 
             val adapterProducts =
                 MyProductListAdapter(requireActivity(),
-                productList,
-                this@ProductsFragment)
-
-            binding.rvMyProductItems.adapter = adapterProducts
+                    productsList,
+                    this@ProductsFragment)
+            rv_my_product_items.adapter = adapterProducts
+        } else {
+            rv_my_product_items.visibility = View.GONE
+            tv_no_products_found.visibility = View.VISIBLE
         }
     }
 
-    fun deleteProduct(productId: String) {
+    fun deleteProduct(productID: String) {
+
+        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
+
         Toast.makeText(
             requireActivity(),
-            "You can now delete the product. $productId",
+            "You can now delete the product. $productID",
             Toast.LENGTH_SHORT
         ).show()
     }

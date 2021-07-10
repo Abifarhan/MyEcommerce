@@ -63,6 +63,15 @@
     <dimen name="add_product_header_image_height">250dp</dimen>
     <dimen name="add_update_product_icon_padding">16dp</dimen>
     <dimen name="no_data_found_textSize">12sp</dimen>
+    <dimen name="dashboard_item_price_marginTop">2dp</dimen>
+    <dimen name="dashboard_item_textSize">12sp</dimen>
+    <dimen name="dashboard_item_paddingStartEnd">10dp</dimen>
+    <dimen name="dashboard_item_paddingTopBottom">5dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="item_dashboard_image_height">150dp</dimen>
+    <dimen name="item_dashboard_image_margin">10dp</dimen>
+    <dimen name="item_dashboard_padding">1dp</dimen>
+    <dimen name="item_dashboard_margin">5dp</dimen>
     <!--    <dimen name="no_data_found_textSize">No Product added yet</dimen>-->
 
 </resources>
