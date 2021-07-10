@@ -48,5 +48,9 @@
     <string name="lbl_addresses">Addresses</string>
     <string name="lbl_edit">Edit</string>
     <string name="add_product">Add Product</string>
+    <string name="et_hint_product_title">Product Title</string>
+    <string name="et_hint_product_price">Product Price (IDR)</string>
+    <string name="et_hint_product_description">Product Description</string>
+    <string name="et_hint_product_quantity">Product Quantity</string>
 
 </resources>

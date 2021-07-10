@@ -50,5 +50,17 @@
     <dimen name="settings_user_image_size">150dp</dimen>
     <dimen name="settings_user_image_marginTop">-75dp</dimen>
     <dimen name="header_image_height">200dp</dimen>
+    <dimen name="item_list_marginTop">16dp</dimen>
+    <dimen name="item_list_padding">10dp</dimen>
+    <dimen name="item_image_padding">2dp</dimen>
+    <dimen name="item_image_width">80dp</dimen>
+    <dimen name="item_image_height">70dp</dimen>
+    <dimen name="item_image_title_price_marginStart">10dp</dimen>
+    <dimen name="rv_item_name_textSize">14sp</dimen>
+    <dimen name="rv_item_price_marginTop">2dp</dimen>
+    <dimen name="rv_item_price_textSize">12sp</dimen>
+    <dimen name="delete_icon_padding">5dp</dimen>
+    <dimen name="add_product_header_image_height">250dp</dimen>
+    <dimen name="add_update_product_icon_padding">16dp</dimen>
 
 </resources>

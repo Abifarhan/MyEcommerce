@@ -65,7 +65,8 @@ class FirestoreClass {
                         Context.MODE_PRIVATE
                     )
 
-                val editor: SharedPreferences.Editor = sharedPrefences.edit()
+                val editor: SharedPreferences.Editor =
+                    sharedPrefences.edit()
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
                     "${user!!.firstName} ${user.lastName}"

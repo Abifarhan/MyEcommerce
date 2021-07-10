@@ -16,7 +16,8 @@ import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 
-class SettingsActivity : BaseActivity(), View.OnClickListener {
+class SettingsActivity : BaseActivity(),
+    View.OnClickListener {
     private var _binding: ActivitySettingsBinding? = null
     private val binding get() = _binding!!
     private lateinit var mUserDetails: User
@@ -49,7 +50,8 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
 
     private fun getUserDetails() {
         showProgressDialog(resources.getString(R.string.please_wait))
-        FirestoreClass().getUserDetails(this@SettingsActivity)
+        FirestoreClass().getUserDetails(
+            this@SettingsActivity)
     }
 
     fun userDetailsSuccess(user: User) {
@@ -57,7 +59,8 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         hideProgressDialog()
 
         GlideLoader(this@SettingsActivity)
-            .loadUserPicture(user.image, binding.ivUserPhoto)
+            .loadUserPicture(user.image,
+                binding.ivUserPhoto)
         Log.d("image", "This is your image ${user}")
 
         binding.tvName.text = "${user.firstName} ${user.lastName}"

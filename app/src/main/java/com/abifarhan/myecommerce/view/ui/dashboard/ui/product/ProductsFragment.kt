@@ -33,6 +33,7 @@ class ProductsFragment : Fragment() {
         return root
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.add_product_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
