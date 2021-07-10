@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
-        <activity android:name=".view.ui.dashboard.ui.product.addproduct.AddProductActivity"></activity>
+        <activity android:name=".view.ui.dashboard.ui.product.addproduct.AddProductActivity"
+            android:theme="@style/Theme.MyEcommerce.NoActionBar"></activity>
         <activity
             android:name=".view.ui.settings.SettingsActivity"
             android:screenOrientation="portrait"
