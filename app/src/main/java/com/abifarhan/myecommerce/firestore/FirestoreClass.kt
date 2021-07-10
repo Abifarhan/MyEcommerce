@@ -5,10 +5,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.Fragment
+import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.abifarhan.myecommerce.view.ui.settings.SettingsActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -133,13 +137,13 @@ class FirestoreClass {
     }
 
     fun uploadImageToCloudStorage(
-        activity: Activity, imageFileURI: Uri?
+        activity: Activity, imageFileURI: Uri?,
+        imageType: String
     ) {
         val sRef: StorageReference =
             FirebaseStorage.getInstance()
                 .reference.child(
-                    Constants.USER_PROFILE_IMAGE
-                            + System.currentTimeMillis() + "."
+                    imageType + System.currentTimeMillis() + "."
                             + Constants.getFileExtension(
                         activity,
                         imageFileURI
@@ -161,6 +165,12 @@ class FirestoreClass {
                             is UserProfileActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
                             }
+
+                            is AddProductActivity -> {
+                                activity.imageUploadSuccess(
+                                    uri.toString()
+                                )
+                            }
                         }
                     }
             }
@@ -177,6 +187,57 @@ class FirestoreClass {
                     exception.message,
                     exception
                 )
+            }
+    }
+
+    fun uploadProductDetails(activity: AddProductActivity, product: Product) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .document()
+            .set(product, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.productUploadSuccess()
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while uploading the product details.",
+                    it
+                )
+            }
+    }
+
+    fun getProductList(fragment: Fragment) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+
+                val productList: ArrayList<Product> = ArrayList()
+
+                for (i in document.documents) {
+                    val product = i.toObject(Product::class.java)
+                    product!!.productId = i.id
+
+                    productList.add(product)
+                }
+
+                when (fragment) {
+                    is ProductsFragment ->{
+                        fragment.successProductsListFromFirestore(
+                            productList
+                        )
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when(fragment) {
+                    is ProductsFragment -> {
+                        fragment.hideProgressDialog()
+                    }
+                }
+                Log.e("Get Product List", "Error while getting product list.", it)
             }
     }
 }
