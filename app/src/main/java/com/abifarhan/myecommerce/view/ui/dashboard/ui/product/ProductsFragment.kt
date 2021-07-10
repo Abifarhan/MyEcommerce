@@ -1,5 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.dashboard.ui.product
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -97,5 +98,45 @@ class ProductsFragment : BaseFragment() {
             "You can now delete the product. $productID",
             Toast.LENGTH_SHORT
         ).show()
+        showAlertDialogToDeleteProduct(productID)
+    }
+
+    fun productDeleteSuccess() {
+        hideProgressDialog()
+
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.product_delete_success_message),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        getProductListFromFireStore()
+    }
+
+    private fun showAlertDialogToDeleteProduct(productId: String) {
+
+        val builder = AlertDialog.Builder(requireActivity())
+
+        builder.setTitle("Delete")
+        builder.setMessage("Are you sure want to delete the product?")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        builder.setPositiveButton("Yes"){ dialogInterface, _ ->
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            FirestoreClass().deleteProduct(
+                this@ProductsFragment, productId
+            )
+
+            dialogInterface.dismiss()
+        }
+
+        builder.setNegativeButton("No"){dialogInterface,_ ->
+            dialogInterface.dismiss()
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 }
