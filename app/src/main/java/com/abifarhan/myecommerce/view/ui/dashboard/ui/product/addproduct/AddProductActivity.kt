@@ -3,11 +3,12 @@ package com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityAddProductBinding
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
-class AddProductActivity : BaseActivity() {
+class AddProductActivity : BaseActivity(), View.OnClickListener {
 
     private var _binding: ActivityAddProductBinding? = null
     private val binding get() = _binding!!
@@ -19,6 +20,9 @@ class AddProductActivity : BaseActivity() {
         _binding = ActivityAddProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupActionBar()
+
+        binding.ivAddUpdateProduct.setOnClickListener(this)
+        binding.btnSubmit.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -32,5 +36,9 @@ class AddProductActivity : BaseActivity() {
         }
 
         binding.toolbarAddProductActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
     }
 }
