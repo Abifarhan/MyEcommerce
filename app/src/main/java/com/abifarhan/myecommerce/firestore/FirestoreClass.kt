@@ -225,7 +225,7 @@ class FirestoreClass {
                 for (i in document.documents) {
 
                     val product = i.toObject(Product::class.java)
-                    product!!.productId = i.id
+                    product!!.product_id = i.id
 
                     productsList.add(product)
                 }
@@ -263,7 +263,7 @@ class FirestoreClass {
                 for (i in document.documents) {
 
                     val product = i.toObject(Product::class.java)!!
-                    product.productId = i.id
+                    product.product_id = i.id
                     productsList.add(product)
                 }
 
