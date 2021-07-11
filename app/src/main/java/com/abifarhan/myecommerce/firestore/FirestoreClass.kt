@@ -13,6 +13,7 @@ import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
@@ -333,6 +334,29 @@ class FirestoreClass {
                     activity.productExistInCart()
                 } else{
                     activity.hideProgressDialog()
+                }
+            }
+    }
+
+
+    fun getCartList(activity: Activity) {
+        mFireStore.collection(Constants.CART_ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val list: ArrayList<Cart> = ArrayList()
+                for (i in document.documents) {
+                    val cartItem = i.toObject(Cart::class.java)!!
+                    cartItem.id = i.id
+
+                    list.add(cartItem)
+                }
+
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.successCartItemsList(list)
+                        Log.d("ini dia","ini list cartnya ngab $list")
+                    }
                 }
             }
     }

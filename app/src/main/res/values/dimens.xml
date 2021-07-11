@@ -86,6 +86,23 @@
     <dimen name="checkout_label_value_textSize">18sp</dimen>
     <dimen name="ll_checkout_padding">16dp</dimen>
     <dimen name="rv_cart_items_marginTop">16dp</dimen>
-    <!--    <dimen name="no_data_found_textSize">No Product added yet</dimen>-->
-
+    <dimen name="cart_item_marginTop">16dp</dimen>
+    <dimen name="cart_item_paddingStartEnd">16dp</dimen>
+    <dimen name="cart_item_paddingTopBottom">12dp</dimen>
+    <dimen name="cart_item_image_padding">2dp</dimen>
+    <dimen name="cart_item_image_width">80dp</dimen>
+    <dimen name="cart_item_image_height">70dp</dimen>
+    <dimen name="cart_item_title_textSize">16sp</dimen>
+    <dimen name="cart_item_details_marginStart">10dp</dimen>
+    <dimen name="cart_item_details_marginEnd">2dp</dimen>
+    <dimen name="ib_cart_item_padding">5dp</dimen>
+    <dimen name="cart_item_price_textSize">12sp</dimen>
+    <dimen name="update_cart_quantity_marginStart">5dp</dimen>
+    <dimen name="update_cart_quantity_marginEnd">16dp</dimen>
+    <dimen name="ib_remove_cart_item_marginStartEnd">5dp</dimen>
+    <dimen name="cart_quantity_paddingStartEnd">16dp</dimen>
+    <dimen name="cart_quantity_paddingTopBottom">3dp</dimen>
+    <dimen name="cart_quantity_textSize">14sp</dimen>
+    <dimen name="ib_add_cart_item_marginStart">5dp</dimen>
+    <dimen name="ib_add_cart_item_marginEnd">16dp</dimen>
 </resources>

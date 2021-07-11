@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
-        <activity android:name=".view.ui.dashboard.ui.orders.cart.list.CartListActivity"></activity>
+        <activity android:name=".view.ui.dashboard.ui.orders.cart.list.CartListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyEcommerce.NoActionBar" />
         <activity
             android:name=".view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity"
             android:screenOrientation="portrait"
