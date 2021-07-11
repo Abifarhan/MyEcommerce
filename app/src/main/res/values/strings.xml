@@ -66,4 +66,5 @@
     <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
     <string name="btn_lbl_add_to_cart">Add To The Cart</string>
     <string name="success_message_item_added_to_cart">Success add product to the cart</string>
+    <string name="btn_lbl_go_to_cart">Go To Cart</string>
 </resources>

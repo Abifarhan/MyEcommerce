@@ -318,4 +318,22 @@ class FirestoreClass {
                 activity.addToCartSuccess()
             }
     }
+
+    fun checkIfItemExistInCart(
+        activity: ProductDetailActivity,
+        productId: String
+    ) {
+        mFireStore.collection(Constants.CART_ITEMS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .whereEqualTo(Constants.PRODUCT_ID, productId)
+            .get()
+            .addOnSuccessListener { document ->
+
+                if (document.documents.size > 0) {
+                    activity.productExistInCart()
+                } else{
+                    activity.hideProgressDialog()
+                }
+            }
+    }
 }
