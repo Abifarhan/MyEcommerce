@@ -1,5 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,7 @@ import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
 
 class ProductDetailActivity : BaseActivity(), View.OnClickListener {
     private var _binding: ActivityProductDetailBinding? = null
@@ -100,6 +102,13 @@ class ProductDetailActivity : BaseActivity(), View.OnClickListener {
             when (v.id) {
                 R.id.btn_add_to_cart -> {
                     addToCart()
+                }
+
+                R.id.btn_go_to_cart -> {
+                    startActivity(Intent(
+                        this@ProductDetailActivity,
+                        CartListActivity::class.java
+                    ))
                 }
             }
         }

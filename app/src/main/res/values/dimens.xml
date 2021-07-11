@@ -83,6 +83,9 @@
     <dimen name="product_details_stock_quantity_paddingStartEnd">16dp</dimen>
     <dimen name="product_details_stock_quantity_paddingTopBottom">16dp</dimen>
     <dimen name="product_details_stock_quantity_textSize">16sp</dimen>
+    <dimen name="checkout_label_value_textSize">18sp</dimen>
+    <dimen name="ll_checkout_padding">16dp</dimen>
+    <dimen name="rv_cart_items_marginTop">16dp</dimen>
     <!--    <dimen name="no_data_found_textSize">No Product added yet</dimen>-->
 
 </resources>

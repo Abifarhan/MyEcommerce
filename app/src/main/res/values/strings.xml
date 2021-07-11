@@ -67,4 +67,10 @@
     <string name="btn_lbl_add_to_cart">Add To The Cart</string>
     <string name="success_message_item_added_to_cart">Success add product to the cart</string>
     <string name="btn_lbl_go_to_cart">Go To Cart</string>
+    <string name="btn_lbl_checkout">Checkout</string>
+    <string name="lbl_total_amount">Total Amount</string>
+    <string name="lbl_shipping_charge">Shipping Charge</string>
+    <string name="lbl_subtotal">Sub total</string>
+    <string name="no_cart_item_found">No item found in cart</string>
+    <string name="title_my_cart">-25</string>
 </resources>

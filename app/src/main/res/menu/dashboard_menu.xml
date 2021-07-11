@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/title_settings"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_cart"
+        android:title="Cart"
+        app:showAsAction="always"/>
 </menu>

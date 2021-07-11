@@ -11,6 +11,7 @@ import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.base.BaseFragment
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
 import com.abifarhan.myecommerce.view.ui.settings.SettingsActivity
 import java.util.ArrayList
@@ -61,6 +62,11 @@ class DashboardFragment :BaseFragment() {
         when (id) {
             R.id.action_settings ->{
                 startActivity(Intent(activity, SettingsActivity::class.java))
+            }
+
+            R.id.action_cart -> {
+                startActivity(Intent(activity, CartListActivity::class.java))
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
