@@ -1,6 +1,7 @@
 package com.abifarhan.myecommerce.view.ui.dashboard.ui.product
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ItemListLayoutBinding
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.GlideLoader
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 import java.security.PrivateKey
 
@@ -44,6 +46,11 @@ open class MyProductListAdapter(
             holder.itemView.ib_delete_product.setOnClickListener {
 
                 fragment.deleteProduct(model.product_id)
+            }
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context,ProductDetailActivity::class.java)
+                context.startActivity(intent)
             }
         }
     }
