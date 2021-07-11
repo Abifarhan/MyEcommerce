@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ItemListLayoutBinding
 import com.abifarhan.myecommerce.model.Product
+import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
 import kotlinx.android.synthetic.main.item_list_layout.view.*
@@ -50,6 +51,7 @@ open class MyProductListAdapter(
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(context,ProductDetailActivity::class.java)
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
                 context.startActivity(intent)
             }
         }

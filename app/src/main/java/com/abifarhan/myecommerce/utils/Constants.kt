@@ -18,6 +18,8 @@ object Constants {
     const val READ_STORAGE_PERMISSION_CODE = 2
     const val PICK_IMAGE_REQUEST_CODE = 2
 
+    const val EXTRA_PRODUCT_ID: String = "extra_product_id"
+
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"
 

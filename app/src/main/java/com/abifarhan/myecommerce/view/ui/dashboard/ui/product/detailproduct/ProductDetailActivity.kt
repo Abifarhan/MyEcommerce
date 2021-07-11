@@ -2,13 +2,40 @@ package com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.abifarhan.myecommerce.R
+import com.abifarhan.myecommerce.databinding.ActivityProductDetailBinding
+import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
 class ProductDetailActivity : BaseActivity() {
+    private var _binding: ActivityProductDetailBinding? = null
+    private val binding get() =  _binding!!
+    private var mProductId: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_detail)
+        _binding = ActivityProductDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setupActionBar()
+        if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
+            mProductId = intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
+            Toast.makeText(this, "ini id produk Anda $mProductId", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupActionBar() {
+        setSupportActionBar(binding.toolbarProductDetailsActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+        }
+
+        binding.toolbarProductDetailsActivity.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 }
