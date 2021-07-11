@@ -106,5 +106,17 @@ class ProductDetailActivity : BaseActivity(), View.OnClickListener {
             mProductDetail.image,
             Constants.DEFAULT_CART_QUANTITY
         )
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addCartItems(this@ProductDetailActivity, addToCart)
+    }
+
+    fun addToCartSuccess() {
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@ProductDetailActivity,
+            resources.getString(R.string.success_message_item_added_to_cart),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.abifarhan.myecommerce.model.Cart
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
@@ -303,6 +304,18 @@ class FirestoreClass {
             .addOnSuccessListener { document ->
                 val product = document.toObject(Product::class.java)
                 productDetailActivity.productDetailsSuccess(product!!)
+            }
+    }
+
+    fun addCartItems(
+        activity: ProductDetailActivity,
+        addToCart: Cart
+    ) {
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document()
+            .set(addToCart, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addToCartSuccess()
             }
     }
 }
