@@ -19,6 +19,7 @@ object Constants {
     const val PICK_IMAGE_REQUEST_CODE = 2
 
     const val EXTRA_PRODUCT_ID: String = "extra_product_id"
+    const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
 
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"

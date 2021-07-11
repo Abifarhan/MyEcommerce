@@ -64,4 +64,5 @@
     <string name="product_delete_success_message">Deleted success</string>
     <string name="lbl_product_description">Product Description</string>
     <string name="lbl_product_details_stock_quantity">Stock Quantity</string>
+    <string name="btn_lbl_add_to_cart">Add To The Cart</string>
 </resources>

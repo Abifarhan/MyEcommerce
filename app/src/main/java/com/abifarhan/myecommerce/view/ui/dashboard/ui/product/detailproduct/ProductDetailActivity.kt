@@ -2,6 +2,7 @@ package com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityProductDetailBinding
@@ -27,6 +28,20 @@ class ProductDetailActivity : BaseActivity() {
             Toast.makeText(this, "ini id produk Anda $mProductId", Toast.LENGTH_SHORT).show()
         }
 
+        var productOwnerId: String = ""
+        if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
+            productOwnerId =
+                intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
+        }
+//        binding.btnPublish.setOnClickListener {
+//            Toast.makeText(this, "Anda mulai klik", Toast.LENGTH_SHORT).show()
+//        }
+
+        if (FirestoreClass().getCurrentUserID() == productOwnerId) {
+            binding.btnAddToCart.visibility = View.GONE
+        } else {
+            binding.btnAddToCart.visibility = View.VISIBLE
+        }
         getProductDetails()
     }
 
