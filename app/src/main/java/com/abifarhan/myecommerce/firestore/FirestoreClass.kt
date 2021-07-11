@@ -14,6 +14,7 @@ import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.abifarhan.myecommerce.view.ui.settings.SettingsActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -292,6 +293,16 @@ class FirestoreClass {
                     "Error while deleting the product.",
                     it
                 )
+            }
+    }
+
+    fun getProductDetails(productDetailActivity: ProductDetailActivity, mProductId: String) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .document(mProductId)
+            .get()
+            .addOnSuccessListener { document ->
+                val product = document.toObject(Product::class.java)
+                productDetailActivity.productDetailsSuccess(product!!)
             }
     }
 }

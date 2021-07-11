@@ -9,7 +9,9 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.FragmentDashboardBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Product
+import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.base.BaseFragment
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.detailproduct.ProductDetailActivity
 import com.abifarhan.myecommerce.view.ui.settings.SettingsActivity
 import java.util.ArrayList
 
@@ -77,6 +79,15 @@ class DashboardFragment :BaseFragment() {
 
             val adapter = DashboardItemsListAdapter(requireActivity(), dashboardItemsList)
             binding.rvDashboardItems.adapter = adapter
+
+            adapter.setOnClickListener(object : DashboardItemsListAdapter.OnClickListener {
+                override fun onClick(position: Int, product: Product) {
+                    val intent = Intent(context, ProductDetailActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    startActivity(intent)
+                }
+
+            })
         } else {
             binding.rvDashboardItems.visibility = View.GONE
             binding.tvNoDashboardItemsFound.visibility = View.VISIBLE

@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.widget.Toast
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityProductDetailBinding
+import com.abifarhan.myecommerce.firestore.FirestoreClass
+import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
+import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
 class ProductDetailActivity : BaseActivity() {
     private var _binding: ActivityProductDetailBinding? = null
-    private val binding get() =  _binding!!
+    private val binding get() = _binding!!
     private var mProductId: String = ""
 
 
@@ -23,6 +26,17 @@ class ProductDetailActivity : BaseActivity() {
             mProductId = intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
             Toast.makeText(this, "ini id produk Anda $mProductId", Toast.LENGTH_SHORT).show()
         }
+
+        getProductDetails()
+    }
+
+    private fun getProductDetails() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getProductDetails(
+            this,
+            mProductId
+        )
     }
 
     private fun setupActionBar() {
@@ -37,5 +51,20 @@ class ProductDetailActivity : BaseActivity() {
         binding.toolbarProductDetailsActivity.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
+
+    fun productDetailsSuccess(product: Product) {
+        hideProgressDialog()
+
+        GlideLoader(this@ProductDetailActivity).loadProductPicture(
+            product.image,
+            binding.ivProductDetailImage
+        )
+
+        binding.tvProductDetailsTitle.text = product.title
+        binding.tvProductDetailsPrice.text = "$${product.price}"
+        binding.tvProductDetailsDescription.text = product.description
+        binding.tvProductDetailsAvailableQuantity.text = product.stockQuantity
+
     }
 }
