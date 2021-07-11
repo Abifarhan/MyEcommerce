@@ -7,16 +7,17 @@ import android.widget.Toast
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityProductDetailBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
+import com.abifarhan.myecommerce.model.Cart
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 
-class ProductDetailActivity : BaseActivity() {
+class ProductDetailActivity : BaseActivity(), View.OnClickListener {
     private var _binding: ActivityProductDetailBinding? = null
     private val binding get() = _binding!!
     private var mProductId: String = ""
-
+    private lateinit var mProductDetail: Product
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,8 @@ class ProductDetailActivity : BaseActivity() {
         } else {
             binding.btnAddToCart.visibility = View.VISIBLE
         }
+
+        binding.btnAddToCart.setOnClickListener(this)
         getProductDetails()
     }
 
@@ -69,6 +72,7 @@ class ProductDetailActivity : BaseActivity() {
     }
 
     fun productDetailsSuccess(product: Product) {
+        mProductDetail = product
         hideProgressDialog()
 
         GlideLoader(this@ProductDetailActivity).loadProductPicture(
@@ -81,5 +85,26 @@ class ProductDetailActivity : BaseActivity() {
         binding.tvProductDetailsDescription.text = product.description
         binding.tvProductDetailsAvailableQuantity.text = product.stockQuantity
 
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+                R.id.btn_add_to_cart -> {
+                    addToCart()
+                }
+            }
+        }
+    }
+
+    private fun addToCart() {
+        val addToCart = Cart(
+            FirestoreClass().getCurrentUserID(),
+            mProductId,
+            mProductDetail.title,
+            mProductDetail.price,
+            mProductDetail.image,
+            Constants.DEFAULT_CART_QUANTITY
+        )
     }
 }

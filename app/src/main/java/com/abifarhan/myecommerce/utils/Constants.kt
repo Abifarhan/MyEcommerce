@@ -23,6 +23,7 @@ object Constants {
 
     const val MALE: String = "Male"
     const val FEMALE: String = "Female"
+    const val DEFAULT_CART_QUANTITY: String = "1"
 
     const val MOBILE: String = "mobile"
     const val GENDER: String = "gender"
