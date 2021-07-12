@@ -1,7 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.settings
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +10,7 @@ import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
-import com.abifarhan.myecommerce.view.ui.AddressListActivity
+import com.abifarhan.myecommerce.view.ui.address.AddressListActivity
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity

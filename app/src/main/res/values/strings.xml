@@ -79,4 +79,15 @@
     <string name="title_address_list">ADDRESS LIST</string>
     <string name="no_address_found">No Address Found!</string>
     <string name="lbL_add_address">Add Address</string>
+
+    <string name="title_add_address">ADD ADDRESS</string>
+    <string name="hint_full_name">Full name</string>
+    <string name="hint_phone_number">Phone number</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_zip_code">ZipCode</string>
+    <string name="hint_additional_note">Additional note</string>
+    <string name="hint_other_details">Other details</string>
+    <string name="lbl_home">HOME</string>
+    <string name="lbl_office">OFFICE</string>
+    <string name="lbl_other">OTHER</string>
 </resources>

@@ -1,5 +1,6 @@
-package com.abifarhan.myecommerce.view.ui
+package com.abifarhan.myecommerce.view.ui.address
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.abifarhan.myecommerce.R
@@ -15,6 +16,12 @@ class AddressListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupActionBar()
+
+        binding.tvAddAddress.setOnClickListener{
+            val intent = Intent(this,
+            AddEditAddressActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupActionBar() {
