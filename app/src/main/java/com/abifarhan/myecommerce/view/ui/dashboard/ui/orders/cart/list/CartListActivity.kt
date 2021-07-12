@@ -1,7 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,6 +18,8 @@ class CartListActivity : BaseActivity() {
     private var _binding: ActivityCartListBinding? = null
     private val binding get() = _binding!!
     private lateinit var mProductList: ArrayList<Product>
+
+    private lateinit var mCartListItems: ArrayList<Cart>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,15 +51,28 @@ class CartListActivity : BaseActivity() {
     }
 
     private fun getCartItemsList() {
-        showProgressDialog(resources.getString(R.string.please_wait))
+//        showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().getCartList(this@CartListActivity)
     }
 
     @SuppressLint("SetTextI18n")
-    fun successCartItemsList(list: ArrayList<Cart>) {
+    fun successCartItemsList(cartList: ArrayList<Cart>) {
         hideProgressDialog()
-        Log.d("ini ida","ini data cart Anda $list")
-        if (list.size > 0) {
+        Log.d("ini ida","ini data cart Anda $cartList")
+        for (product in mProductList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
+                    cart.stock_quantity = product.stockQuantity
+                    if (product.stockQuantity.toInt() == 0) {
+                        cart.cart_quantity = product.stockQuantity
+                    }
+                }
+            }
+        }
+
+        mCartListItems = cartList
+
+        if (mCartListItems.size > 0) {
             rv_cart_items_list.visibility = View.VISIBLE
             ll_checkout.visibility = View.VISIBLE
             tv_no_cart_item_found.visibility = View.GONE
@@ -66,15 +80,23 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            var cartListAdapter = CartItemsListAdapter(this@CartListActivity, list)
+            var cartListAdapter = CartItemsListAdapter(this@CartListActivity, cartList)
             rv_cart_items_list.adapter = cartListAdapter
             var subTotal: Double = 0.0
 
-            for (item in list) {
-                val price = item.price.toDouble()
-                val quantity = item.cart_quantity.toInt()
+            for (item in mCartListItems) {
+                val availableQuantity = item.stock_quantity.toInt()
 
-                subTotal += (price * quantity)
+                if (availableQuantity > 0) {
+                    val price = item.price.toDouble()
+                    val quantity = item.cart_quantity.toInt()
+
+                    subTotal += (price * quantity)
+                }
+//                val price = item.price.toDouble()
+//                val quantity = item.cart_quantity.toInt()
+
+//                subTotal += (price * quantity)
             }
 
             tv_sub_total.text = "$$subTotal"
