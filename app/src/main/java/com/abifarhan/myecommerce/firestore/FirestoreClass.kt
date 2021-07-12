@@ -220,6 +220,8 @@ class FirestoreClass {
 
                 // Here we get the list of boards in the form of documents.
                 Log.e("Products List", "ini produk Anda ${document.documents.toString()}")
+                Log.e("Products List", "ini produk Anda dibandingkan userID ${Constants.USER_ID}")
+                Log.e("Products List", "ini produk Anda nilai yg dibandingkan ${getCurrentUserID()}")
 
                 // Here we have created a new instance for Products ArrayList.
                 val productsList: ArrayList<Product> = ArrayList()
@@ -388,6 +390,32 @@ class FirestoreClass {
                         context.itemRemovedSuccess()
                     }
                 }
+            }
+    }
+
+    fun updateMyCart(context: Context, cart_id: String, itemHashMap: java.util.HashMap<String, Any>) {
+        mFireStore.collection(Constants.CART_ITEMS)
+            .document(cart_id)
+            .update(itemHashMap)
+            .addOnSuccessListener {
+                when (context) {
+                    is CartListActivity -> {
+                        context.itemUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener {
+
+                when(context){
+                    is CartListActivity ->{
+                        context.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    context.javaClass.simpleName,
+                    "Error while updating the cart item.",
+                    it
+                )
             }
     }
 }

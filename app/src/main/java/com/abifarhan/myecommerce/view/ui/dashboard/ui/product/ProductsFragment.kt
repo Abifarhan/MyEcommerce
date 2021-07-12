@@ -69,7 +69,7 @@ class ProductsFragment : BaseFragment() {
     fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
 
         hideProgressDialog()
-
+        Log.d("ini cek produk","ini list produk Anda $productsList")
         if (productsList.size > 0) {
             rv_my_product_items.visibility = View.VISIBLE
             tv_no_products_found.visibility = View.GONE

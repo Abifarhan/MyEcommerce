@@ -34,11 +34,12 @@ object Constants {
     const val FIRST_NAME: String = "firstName"
     const val LAST_NAME: String = "lastName"
 
-    const val USER_ID: String = "user_id"
+    const val USER_ID: String = "userId"
     const val PRODUCT_ID: String = "product_id"
 
     const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
     const val PRODUCT_IMAGE: String = "Product_Image"
+    const val CART_QUANTITY: String = "cart_quantity"
 
     fun showImageChooser(activity: Activity) {
         val galleryIntent = Intent(
