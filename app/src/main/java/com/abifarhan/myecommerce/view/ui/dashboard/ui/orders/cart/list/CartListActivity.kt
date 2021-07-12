@@ -10,6 +10,7 @@ import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityCartListBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Cart
+import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_cart_list.*
 import java.util.ArrayList
@@ -17,6 +18,7 @@ import java.util.ArrayList
 class CartListActivity : BaseActivity() {
     private var _binding: ActivityCartListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var mProductList: ArrayList<Product>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,9 @@ class CartListActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        getCartItemsList()
+//        getCartItemsList()
+
+        getProductList()
     }
 
     private fun getCartItemsList() {
@@ -88,5 +92,19 @@ class CartListActivity : BaseActivity() {
             ll_checkout.visibility = View.GONE
             tv_no_cart_item_found.visibility = View.VISIBLE
         }
+    }
+
+    fun successProductsListFromFirestore(productList: ArrayList<Product>) {
+        mProductList = productList
+
+        getCartItemsList()
+    }
+
+    private fun getProductList() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAllProductList(
+            this@CartListActivity
+        )
     }
 }

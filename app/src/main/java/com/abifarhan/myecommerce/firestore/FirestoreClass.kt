@@ -360,4 +360,21 @@ class FirestoreClass {
                 }
             }
     }
+
+    fun getAllProductList(activity: CartListActivity) {
+        mFireStore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+
+                val productList: ArrayList<Product> = ArrayList()
+
+                for (i in document.documents) {
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+                    productList.add(product)
+                }
+
+                activity.successProductsListFromFirestore(productList)
+            }
+    }
 }
