@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityCartListBinding
@@ -128,5 +129,17 @@ class CartListActivity : BaseActivity() {
         FirestoreClass().getAllProductList(
             this@CartListActivity
         )
+    }
+
+    fun itemRemovedSuccess() {
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@CartListActivity,
+            resources.getString(R.string.msg_item_removed_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        getCartItemsList()
     }
 }

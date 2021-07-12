@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityProductDetailBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
@@ -14,6 +15,7 @@ import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
+import kotlinx.android.synthetic.main.activity_product_detail.*
 
 class ProductDetailActivity : BaseActivity(), View.OnClickListener {
     private var _binding: ActivityProductDetailBinding? = null
@@ -94,6 +96,31 @@ class ProductDetailActivity : BaseActivity(), View.OnClickListener {
         } else {
             FirestoreClass().checkIfItemExistInCart(this,
             mProductId)
+        }
+
+        if (product.stockQuantity.toInt() == 0) {
+            hideProgressDialog()
+
+            btn_add_to_cart.visibility = View.GONE
+
+            tv_product_details_available_quantity.text =
+                resources.getString(R.string.lbl_out_of_stock)
+
+            tv_product_details_available_quantity.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.colorSnackBarError
+                )
+            )
+        }
+        else{
+            if (FirestoreClass().getCurrentUserID() == product.userId) {
+                hideProgressDialog()
+            }else{
+                FirestoreClass().checkIfItemExistInCart(
+                    this,mProductId
+                )
+            }
         }
     }
 

@@ -73,4 +73,7 @@
     <string name="lbl_subtotal">Sub total</string>
     <string name="no_cart_item_found">No item found in cart</string>
     <string name="title_my_cart">-25</string>
+    <string name="lbl_out_of_stock">OUT OF STOCK</string>
+    <string name="msg_item_removed_successfully">Item removed successfully.</string>
+
 </resources>
