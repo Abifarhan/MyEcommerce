@@ -11,10 +11,12 @@ import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.utils.GlideLoader
+import com.abifarhan.myecommerce.view.ui.AddressListActivity
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import com.abifarhan.myecommerce.view.ui.profile.UserProfileActivity
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : BaseActivity(),
     View.OnClickListener {
@@ -30,6 +32,7 @@ class SettingsActivity : BaseActivity(),
 //        actionBar?.hide()
         binding.btnLogout.setOnClickListener(this)
         binding.tvEdit.setOnClickListener(this)
+        binding.llAddress.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -94,6 +97,14 @@ class SettingsActivity : BaseActivity(),
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
+            }
+
+            R.id.ll_address -> {
+                val intent = Intent(
+                    this,
+                    AddressListActivity::class.java
+                )
+                startActivity(intent)
             }
         }
 

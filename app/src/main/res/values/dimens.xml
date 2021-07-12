@@ -105,4 +105,8 @@
     <dimen name="cart_quantity_textSize">14sp</dimen>
     <dimen name="ib_add_cart_item_marginStart">5dp</dimen>
     <dimen name="ib_add_cart_item_marginEnd">16dp</dimen>
+    <dimen name="btn_add_address_margin">16dp</dimen>
+    <dimen name="btn_add_address_padding">16dp</dimen>
+    <dimen name="add_address_textSize">18sp</dimen>
+    <dimen name="rv_address_list_marginTop">16dp</dimen>
 </resources>
