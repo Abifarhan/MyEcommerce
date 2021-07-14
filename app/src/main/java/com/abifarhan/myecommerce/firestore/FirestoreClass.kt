@@ -12,6 +12,7 @@ import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.address.AddEditAddressActivity
+import com.abifarhan.myecommerce.view.ui.address.AddressListActivity
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
@@ -427,6 +428,25 @@ class FirestoreClass {
             .set(addressInfo, SetOptions.merge())
             .addOnSuccessListener {
                 activity.addUpdateAddressSuccess()
+            }
+    }
+
+    fun getAddressesList(addressListActivity: AddressListActivity) {
+        mFireStore.collection(Constants.ADDRESSES)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                val addressList: ArrayList<Address> = ArrayList()
+
+                for (i in document.documents) {
+                    val address = i.toObject(Address::class.java)!!
+                    address.id = i.id
+                    addressList.add(address)
+                }
+
+                addressListActivity.successAddressListFromFirestore(
+                    addressList
+                )
             }
     }
 }

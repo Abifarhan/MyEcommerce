@@ -15,5 +15,5 @@ data class Address(
 
     val type: String = "",
     val otherDetails: String = "",
-    val id: String = ""
+    var id: String = ""
 ): Parcelable

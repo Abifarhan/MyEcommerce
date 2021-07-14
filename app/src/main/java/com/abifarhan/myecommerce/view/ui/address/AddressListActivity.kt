@@ -3,10 +3,15 @@ package com.abifarhan.myecommerce.view.ui.address
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityAddressListBinding
+import com.abifarhan.myecommerce.firestore.FirestoreClass
+import com.abifarhan.myecommerce.model.Address
+import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import java.util.ArrayList
 
-class AddressListActivity : AppCompatActivity() {
+class AddressListActivity : BaseActivity() {
     private var _binding: ActivityAddressListBinding? = null
     private val binding get() = _binding!!
 
@@ -22,6 +27,14 @@ class AddressListActivity : AppCompatActivity() {
             AddEditAddressActivity::class.java)
             startActivity(intent)
         }
+
+        getAddressList()
+    }
+
+    private fun getAddressList() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAddressesList(this)
     }
 
     private fun setupActionBar() {
@@ -35,6 +48,14 @@ class AddressListActivity : AppCompatActivity() {
 
         binding.toolbarAddressListActivity.setNavigationOnClickListener {
             onBackPressed()
+        }
+    }
+
+    fun successAddressListFromFirestore(addressList: ArrayList<Address>) {
+        hideProgressDialog()
+
+        for (i in addressList) {
+            Log.d("name","Name and address is ${i.name}")
         }
     }
 }
