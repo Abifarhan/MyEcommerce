@@ -45,6 +45,8 @@ object Constants {
     const val OFFICE: String = "Office"
     const val OTHER: String = "Other"
 
+    const val ADDRESSES: String = "addresses"
+
     fun showImageChooser(activity: Activity) {
         val galleryIntent = Intent(
             Intent.ACTION_PICK,

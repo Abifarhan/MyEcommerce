@@ -95,5 +95,6 @@
     <string name="err_msg_please_enter_address">Please enter address.</string>
     <string name="err_msg_please_enter_zip_code">Please enter zip-code.</string>
     <string name="err_msg_please_enter_other_details">Please enter other details.</string>
+    <string name="err_your_address_added_successfully">Your address is added successfully.</string>
 
 </resources>

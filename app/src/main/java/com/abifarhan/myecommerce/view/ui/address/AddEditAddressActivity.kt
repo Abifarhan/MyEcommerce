@@ -3,6 +3,8 @@ package com.abifarhan.myecommerce.view.ui.address
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.widget.Toast
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityAddEditAddressBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
@@ -23,6 +25,17 @@ class AddEditAddressActivity : BaseActivity() {
 
         setupActionBar()
 
+        binding.rgType.setOnCheckedChangeListener{_, checkedId ->
+            if (checkedId == R.id.rb_other) {
+                binding.tilOtherDetails.visibility = View.VISIBLE
+            } else{
+                binding.tilOtherDetails.visibility = View.GONE
+            }
+        }
+
+        binding.btnSubmitAddress.setOnClickListener{
+            saveAddressToFirestore()
+        }
     }
 
     private fun setupActionBar() {
@@ -112,6 +125,21 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
+
+            FirestoreClass().addAddress(
+                this,
+                addressModel
+            )
         }
+    }
+
+    fun addUpdateAddressSuccess() {
+        hideProgressDialog()
+        Toast.makeText(
+            this@AddEditAddressActivity,
+            resources.getString(R.string.err_your_address_added_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+        finish()
     }
 }

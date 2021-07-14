@@ -6,10 +6,12 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
+import com.abifarhan.myecommerce.model.Address
 import com.abifarhan.myecommerce.model.Cart
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.model.User
 import com.abifarhan.myecommerce.utils.Constants
+import com.abifarhan.myecommerce.view.ui.address.AddEditAddressActivity
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
@@ -416,6 +418,15 @@ class FirestoreClass {
                     "Error while updating the cart item.",
                     it
                 )
+            }
+    }
+
+    fun addAddress(activity: AddEditAddressActivity, addressInfo: Address) {
+        mFireStore.collection(Constants.ADDRESSES)
+            .document()
+            .set(addressInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.addUpdateAddressSuccess()
             }
     }
 }
