@@ -15,12 +15,17 @@ class AddEditAddressActivity : BaseActivity() {
 
     private var _binding: ActivityAddEditAddressBinding? = null
     private val binding get() = _binding!!
-
+    private var mAddressDetails: Address? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAddEditAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)) {
+            mAddressDetails =
+                intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)!!
+        }
 
         setupActionBar()
 

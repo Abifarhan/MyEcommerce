@@ -96,5 +96,8 @@
     <string name="err_msg_please_enter_zip_code">Please enter zip-code.</string>
     <string name="err_msg_please_enter_other_details">Please enter other details.</string>
     <string name="err_your_address_added_successfully">Your address is added successfully.</string>
+    <string name="title_edit_address">EDIT ADDRESS</string>
+    <string name="btn_lbl_update">UPDATE</string>
+    <string name="err_your_address_deleted_successfully">Your address is deleted successfully.</string>
 
 </resources>
