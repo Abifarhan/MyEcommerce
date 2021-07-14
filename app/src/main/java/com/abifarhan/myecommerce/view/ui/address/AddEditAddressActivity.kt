@@ -144,6 +144,7 @@ class AddEditAddressActivity : BaseActivity() {
             resources.getString(R.string.err_your_address_added_successfully),
             Toast.LENGTH_SHORT
         ).show()
+        setResult(RESULT_OK)
         finish()
     }
 }

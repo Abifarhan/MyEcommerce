@@ -1,6 +1,7 @@
 package com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,8 @@ import com.abifarhan.myecommerce.databinding.ActivityCartListBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Cart
 import com.abifarhan.myecommerce.model.Product
+import com.abifarhan.myecommerce.utils.Constants
+import com.abifarhan.myecommerce.view.ui.address.AddressListActivity
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_cart_list.*
 import java.util.ArrayList
@@ -28,6 +31,12 @@ class CartListActivity : BaseActivity() {
         setContentView(binding.root)
 
         setupActionBar()
+
+        binding.btnCheckout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS,true)
+            startActivity(intent)
+        }
     }
 
     private fun setupActionBar() {
