@@ -119,4 +119,13 @@
     <dimen name="item_address_type_paddingTopBottom">2dp</dimen>
     <dimen name="address_details_textSize">14sp</dimen>
     <dimen name="address_details_marginTop">2dp</dimen>
+    <dimen name="checkout_content_marginStartEnd">16dp</dimen>
+    <dimen name="checkout_content_marginTopBottom">10dp</dimen>
+    <dimen name="checkout_content_lbl_padding">2dp</dimen>
+    <dimen name="checkout_lbl_textSize">14sp</dimen>
+    <dimen name="checkout_content_paddingStartEnd">16dp</dimen>
+    <dimen name="checkout_content_paddingTopBottom">10dp</dimen>
+    <dimen name="ll_checkout_place_order_padding">16dp</dimen>
+    <dimen name="ll_checkout_items_receipt">16dp</dimen>
+
 </resources>

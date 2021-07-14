@@ -100,4 +100,12 @@
     <string name="btn_lbl_update">UPDATE</string>
     <string name="err_your_address_deleted_successfully">Your address is deleted successfully.</string>
     <string name="title_select_address">SELECT ADDRESS</string>
+    <string name="title_checkout">CHECKOUT</string>
+    <string name="checkout_lbl_product_items">Product Items</string>
+    <string name="checkout_lbl_selected_address">Selected Address</string>
+    <string name="checkout_lbl_items_receipt">Items Receipt</string>
+    <string name="lbl_payment_mode">Payment Mode</string>
+    <string name="lbl_cash_on_delivery">Cash On Delivery</string>
+    <string name="btn_lbl_place_order">PLACE ORDER</string>
+
 </resources>

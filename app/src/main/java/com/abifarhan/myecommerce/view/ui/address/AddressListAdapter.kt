@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.model.Address
 import com.abifarhan.myecommerce.utils.Constants
+import com.abifarhan.myecommerce.view.ui.checkout.CheckoutActivity
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
 open class AddressListAdapter(
@@ -45,6 +46,9 @@ open class AddressListAdapter(
                         "Selected address : ${model.address}, ${model.zipCode}",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    val intent = Intent(context, CheckoutActivity::class.java)
+                    context.startActivity(intent)
                 }
             }
         }
