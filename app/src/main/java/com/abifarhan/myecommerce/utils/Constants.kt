@@ -41,6 +41,10 @@ object Constants {
     const val PRODUCT_IMAGE: String = "Product_Image"
     const val CART_QUANTITY: String = "cart_quantity"
 
+    const val HOME: String = "Home"
+    const val OFFICE: String = "Office"
+    const val OTHER: String = "Other"
+
     fun showImageChooser(activity: Activity) {
         val galleryIntent = Intent(
             Intent.ACTION_PICK,

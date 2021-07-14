@@ -90,4 +90,10 @@
     <string name="lbl_home">HOME</string>
     <string name="lbl_office">OFFICE</string>
     <string name="lbl_other">OTHER</string>
+    <string name="err_msg_please_enter_full_name">Please enter full name.</string>
+    <string name="err_msg_please_enter_phone_number">Please enter phone number.</string>
+    <string name="err_msg_please_enter_address">Please enter address.</string>
+    <string name="err_msg_please_enter_zip_code">Please enter zip-code.</string>
+    <string name="err_msg_please_enter_other_details">Please enter other details.</string>
+
 </resources>
