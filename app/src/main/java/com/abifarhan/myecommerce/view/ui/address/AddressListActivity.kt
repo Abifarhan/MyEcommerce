@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityAddressListBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
@@ -54,8 +56,23 @@ class AddressListActivity : BaseActivity() {
     fun successAddressListFromFirestore(addressList: ArrayList<Address>) {
         hideProgressDialog()
 
-        for (i in addressList) {
-            Log.d("name","Name and address is ${i.name}")
+//        for (i in addressList) {
+//            Log.d("name","Name and address is $i")
+//        }
+
+        if (addressList.size > 0) {
+            binding.rvAddressList.visibility = View.VISIBLE
+            binding.tvNoAddressFound.visibility = View.GONE
+
+            binding.rvAddressList.layoutManager = LinearLayoutManager(this)
+            binding.rvAddressList.setHasFixedSize(true)
+
+            val addressAdapter = AddressListAdapter(this,
+            addressList)
+            binding.rvAddressList.adapter = addressAdapter
+        }else{
+            binding.rvAddressList.visibility = View.GONE
+            binding.tvNoAddressFound.visibility = View.VISIBLE
         }
     }
 }
