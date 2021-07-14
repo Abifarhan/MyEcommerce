@@ -449,4 +449,13 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun deleteAddress(addressListActivity: AddressListActivity, addressId: String) {
+        mFireStore.collection(Constants.ADDRESSES)
+            .document(addressId)
+            .delete()
+            .addOnSuccessListener {
+                addressListActivity.deleteAddressSuccess()
+            }
+    }
 }
