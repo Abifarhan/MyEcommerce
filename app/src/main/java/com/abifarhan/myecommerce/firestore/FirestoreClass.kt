@@ -15,6 +15,7 @@ import com.abifarhan.myecommerce.view.ui.address.AddEditAddressActivity
 import com.abifarhan.myecommerce.view.ui.address.AddressListActivity
 import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
+import com.abifarhan.myecommerce.view.ui.checkout.CheckoutActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
@@ -362,11 +363,14 @@ class FirestoreClass {
                         activity.successCartItemsList(list)
                         Log.d("ini dia","ini list cartnya ngab $list")
                     }
+                    is CheckoutActivity -> {
+                        activity.successCartItemsList(list)
+                    }
                 }
             }
     }
 
-    fun getAllProductList(activity: CartListActivity) {
+    fun getAllProductList(activity: Activity) {
         mFireStore.collection(Constants.PRODUCTS)
             .get()
             .addOnSuccessListener { document ->
@@ -379,7 +383,17 @@ class FirestoreClass {
                     productList.add(product)
                 }
 
-                activity.successProductsListFromFirestore(productList)
+                when (activity) {
+
+                    is CartListActivity -> {
+                        activity.successProductsListFromFirestore(productList)
+                    }
+                    is CheckoutActivity -> {
+                        activity.successProductListFromFirestore(
+                            productList
+                        )
+                    }
+                }
             }
     }
 
