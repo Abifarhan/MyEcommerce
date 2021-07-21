@@ -2,6 +2,7 @@ package com.abifarhan.myecommerce.view.ui.checkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityCheckoutBinding
@@ -11,6 +12,8 @@ import com.abifarhan.myecommerce.model.Cart
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartItemsListAdapter
+import kotlinx.android.synthetic.main.item_cart_layout.*
 import kotlin.collections.ArrayList
 
 class CheckoutActivity : BaseActivity() {
@@ -107,6 +110,35 @@ class CheckoutActivity : BaseActivity() {
         mCartItemsList = cartList
         binding.rvCartListItems.layoutManager =
             LinearLayoutManager(this@CheckoutActivity)
+        binding.rvCartListItems.setHasFixedSize(true)
 
+        val cartListAdapter = CartItemsListAdapter(this,
+        mCartItemsList, false)
+        binding.rvCartListItems.adapter = cartListAdapter
+
+
+        var subTotal: Double = 0.0
+
+        for (item in mCartItemsList) {
+            val availableQuantity = item.stock_quantity.toInt()
+
+            if (availableQuantity > 0) {
+                val price = item.price.toDouble()
+                val quantity = item.cart_quantity.toInt()
+
+                subTotal += (price * quantity)
+            }
+        }
+
+        binding.tvCheckoutSubTotal.text = "$$subTotal"
+        binding.tvCheckoutShippingCharge.text = "$10.0"
+        if (subTotal > 0) {
+            binding.llCheckoutPlaceOrder.visibility = View.VISIBLE
+
+            val total = subTotal + 10
+            binding.tvCheckoutTotalAmount.text = "$$total"
+        } else {
+            binding.llCheckoutPlaceOrder.visibility = View.GONE
+        }
     }
 }

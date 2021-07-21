@@ -13,19 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
         android:background="@drawable/app_gradient_color_background">
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_title"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-<!--            android:paddingStart="@dimen/toolbar_title_paddingStart"-->
-<!--            android:paddingEnd="0dp"-->
-<!--            android:text="@string/title_checkout"-->
-<!--            android:textColor="@color/colorWhite"-->
-<!--            android:textSize="@dimen/toolbar_title_text_size"-->
-<!--            android:textStyle="bold" />-->
-
     </androidx.appcompat.widget.Toolbar>
 
     <ScrollView

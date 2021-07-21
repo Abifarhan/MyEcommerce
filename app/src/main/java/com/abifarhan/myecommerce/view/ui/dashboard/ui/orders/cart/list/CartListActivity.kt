@@ -90,7 +90,7 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            var cartListAdapter = CartItemsListAdapter(this@CartListActivity, cartList)
+            var cartListAdapter = CartItemsListAdapter(this@CartListActivity, cartList,false)
             rv_cart_items_list.adapter = cartListAdapter
             var subTotal: Double = 0.0
 
