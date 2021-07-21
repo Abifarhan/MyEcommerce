@@ -1,7 +1,6 @@
 package com.abifarhan.myecommerce.view.ui.checkout
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -121,8 +120,10 @@ class CheckoutActivity : BaseActivity() {
             LinearLayoutManager(this@CheckoutActivity)
         binding.rvCartListItems.setHasFixedSize(true)
 
-        val cartListAdapter = CartItemsListAdapter(this,
-        mCartItemsList, false)
+        val cartListAdapter = CartItemsListAdapter(
+            this,
+            mCartItemsList, false
+        )
         binding.rvCartListItems.adapter = cartListAdapter
 
 
@@ -171,11 +172,35 @@ class CheckoutActivity : BaseActivity() {
     }
 
     fun orderPlacedSuccess() {
+//        hideProgressDialog()
+//        Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)
+//            .show()
+//
+//        val intent = Intent(this@CheckoutActivity, DashBoardActivity::class.java)
+//        intent.flags =
+//            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        startActivity(intent)
+//        finish()
+        FirestoreClass().updateAllDetails(
+            this@CheckoutActivity, mCartItemsList
+        )
+    }
+
+    fun allDetailsUpdatedSuccessfully() {
         hideProgressDialog()
-        Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)
+
+        Toast.makeText(
+            this@CheckoutActivity,
+            "Your order placed successfully.",
+            Toast.LENGTH_SHORT
+        )
             .show()
 
-        val intent = Intent(this@CheckoutActivity, DashBoardActivity::class.java)
+        val intent = Intent(
+            this@CheckoutActivity,
+            DashBoardActivity::class.java
+        )
+
         intent.flags =
             Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

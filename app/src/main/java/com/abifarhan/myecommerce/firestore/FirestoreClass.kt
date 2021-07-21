@@ -87,7 +87,7 @@ class FirestoreClass {
                         activity.userLoggedInSuccess(user)
                     }
 
-                    is SettingsActivity ->{
+                    is SettingsActivity -> {
                         activity.userDetailsSuccess(user)
                     }
                 }
@@ -180,7 +180,7 @@ class FirestoreClass {
                     }
             }
 
-            .addOnFailureListener{exception ->
+            .addOnFailureListener { exception ->
                 when (activity) {
                     is UserProfileActivity -> {
                         activity.hideProgressDialog()
@@ -222,7 +222,10 @@ class FirestoreClass {
                 // Here we get the list of boards in the form of documents.
                 Log.e("Products List", "ini produk Anda ${document.documents.toString()}")
                 Log.e("Products List", "ini produk Anda dibandingkan userID ${Constants.USER_ID}")
-                Log.e("Products List", "ini produk Anda nilai yg dibandingkan ${getCurrentUserID()}")
+                Log.e(
+                    "Products List",
+                    "ini produk Anda nilai yg dibandingkan ${getCurrentUserID()}"
+                )
 
                 // Here we have created a new instance for Products ArrayList.
                 val productsList: ArrayList<Product> = ArrayList()
@@ -239,7 +242,8 @@ class FirestoreClass {
                 when (fragment) {
                     is ProductsFragment -> {
                         fragment.successProductsListFromFireStore(
-                            productsList)
+                            productsList
+                        )
                     }
                 }
             }
@@ -335,7 +339,7 @@ class FirestoreClass {
 
                 if (document.documents.size > 0) {
                     activity.productExistInCart()
-                } else{
+                } else {
                     activity.hideProgressDialog()
                 }
             }
@@ -358,7 +362,7 @@ class FirestoreClass {
                 when (activity) {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
-                        Log.d("ini dia","ini list cartnya ngab $list")
+                        Log.d("ini dia", "ini list cartnya ngab $list")
                     }
                     is CheckoutActivity -> {
                         activity.successCartItemsList(list)
@@ -407,7 +411,11 @@ class FirestoreClass {
             }
     }
 
-    fun updateMyCart(context: Context, cart_id: String, itemHashMap: java.util.HashMap<String, Any>) {
+    fun updateMyCart(
+        context: Context,
+        cart_id: String,
+        itemHashMap: java.util.HashMap<String, Any>
+    ) {
         mFireStore.collection(Constants.CART_ITEMS)
             .document(cart_id)
             .update(itemHashMap)
@@ -420,8 +428,8 @@ class FirestoreClass {
             }
             .addOnFailureListener {
 
-                when(context){
-                    is CartListActivity ->{
+                when (context) {
+                    is CartListActivity -> {
                         context.hideProgressDialog()
                     }
                 }
@@ -476,6 +484,39 @@ class FirestoreClass {
             .set(order, SetOptions.merge())
             .addOnSuccessListener {
                 checkoutActivity.orderPlacedSuccess()
+            }
+    }
+
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+        val writeBatch = mFireStore.batch()
+
+        for (cart in cartList) {
+
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cart.stock_quantity.toInt() -
+                        cart.cart_quantity.toInt()).toString()
+
+            val documentReference = mFireStore.collection(
+                Constants.PRODUCTS
+            )
+                .document(cart.product_id)
+
+            writeBatch.update(documentReference, productHashMap)
+        }
+
+        for (cart in cartList) {
+            val documentReference = mFireStore.collection(Constants.CART_ITEMS)
+                .document(cart.id)
+            writeBatch.delete(documentReference)
+        }
+
+        writeBatch.commit().addOnSuccessListener {
+            activity.allDetailsUpdatedSuccessfully()
+        }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
             }
     }
 }
