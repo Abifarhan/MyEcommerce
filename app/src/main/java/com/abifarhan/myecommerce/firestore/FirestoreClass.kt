@@ -6,10 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.abifarhan.myecommerce.model.Address
-import com.abifarhan.myecommerce.model.Cart
-import com.abifarhan.myecommerce.model.Product
-import com.abifarhan.myecommerce.model.User
+import com.abifarhan.myecommerce.model.*
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.address.AddEditAddressActivity
 import com.abifarhan.myecommerce.view.ui.address.AddressListActivity
@@ -470,6 +467,15 @@ class FirestoreClass {
             .delete()
             .addOnSuccessListener {
                 addressListActivity.deleteAddressSuccess()
+            }
+    }
+
+    fun placeOrder(checkoutActivity: CheckoutActivity, order: Order) {
+        mFireStore.collection(Constants.ORDERS)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+                checkoutActivity.orderPlacedSuccess()
             }
     }
 }

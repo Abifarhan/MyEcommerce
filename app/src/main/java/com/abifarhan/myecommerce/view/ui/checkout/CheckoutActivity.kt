@@ -1,17 +1,21 @@
 package com.abifarhan.myecommerce.view.ui.checkout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityCheckoutBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
 import com.abifarhan.myecommerce.model.Address
 import com.abifarhan.myecommerce.model.Cart
+import com.abifarhan.myecommerce.model.Order
 import com.abifarhan.myecommerce.model.Product
 import com.abifarhan.myecommerce.utils.Constants
 import com.abifarhan.myecommerce.view.ui.base.BaseActivity
+import com.abifarhan.myecommerce.view.ui.dashboard.DashBoardActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartItemsListAdapter
 import kotlinx.android.synthetic.main.item_cart_layout.*
 import kotlin.collections.ArrayList
@@ -25,6 +29,8 @@ class CheckoutActivity : BaseActivity() {
     private var mAddressDetails: Address? = null
     private lateinit var mProductList: ArrayList<Product>
     private lateinit var mCartItemsList: ArrayList<Cart>
+    private var mSubTotal: Double = 0.0
+    private var mTotalAmount: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +67,9 @@ class CheckoutActivity : BaseActivity() {
                 mAddressDetails?.mobileNumber
         }
 
+        binding.btnPlaceOrder.setOnClickListener {
+            placeAnOrder()
+        }
         getProductList()
     }
 
@@ -130,9 +139,9 @@ class CheckoutActivity : BaseActivity() {
             }
         }
 
-        binding.tvCheckoutSubTotal.text = "$$subTotal"
+        binding.tvCheckoutSubTotal.text = "$$mSubTotal"
         binding.tvCheckoutShippingCharge.text = "$10.0"
-        if (subTotal > 0) {
+        if (mSubTotal > 0) {
             binding.llCheckoutPlaceOrder.visibility = View.VISIBLE
 
             val total = subTotal + 10
@@ -140,5 +149,36 @@ class CheckoutActivity : BaseActivity() {
         } else {
             binding.llCheckoutPlaceOrder.visibility = View.GONE
         }
+    }
+
+    private fun placeAnOrder() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        val order = Order(
+            FirestoreClass().getCurrentUserID(),
+            mCartItemsList,
+            mAddressDetails!!,
+            "My order ${System.currentTimeMillis()}",
+            mCartItemsList[0].image,
+            mSubTotal.toString(),
+            "10.0",
+            mTotalAmount.toString()
+        )
+
+        FirestoreClass().placeOrder(
+            this@CheckoutActivity, order
+        )
+    }
+
+    fun orderPlacedSuccess() {
+        hideProgressDialog()
+        Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)
+            .show()
+
+        val intent = Intent(this@CheckoutActivity, DashBoardActivity::class.java)
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }
