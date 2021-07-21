@@ -62,7 +62,7 @@ class CheckoutActivity : BaseActivity() {
                     mAddressDetails?.otherDetails
             }
 
-            binding.tvMobileNumber.text =
+            binding.tvCheckoutMobileNumber.text =
                 mAddressDetails?.mobileNumber
         }
 
@@ -145,10 +145,10 @@ class CheckoutActivity : BaseActivity() {
         if (mSubTotal > 0) {
             binding.llCheckoutPlaceOrder.visibility = View.VISIBLE
 
-            val total = subTotal + 10
-            binding.tvCheckoutTotalAmount.text = "$$total"
+            mTotalAmount = subTotal + 10
+            binding.tvCheckoutTotalAmount.text = "$$mTotalAmount"
         } else {
-            binding.llCheckoutPlaceOrder.visibility = View.GONE
+            binding.llCheckoutPlaceOrder.visibility = View.VISIBLE
         }
     }
 
@@ -172,17 +172,10 @@ class CheckoutActivity : BaseActivity() {
     }
 
     fun orderPlacedSuccess() {
-//        hideProgressDialog()
-//        Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)
-//            .show()
-//
-//        val intent = Intent(this@CheckoutActivity, DashBoardActivity::class.java)
-//        intent.flags =
-//            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        startActivity(intent)
-//        finish()
+
         FirestoreClass().updateAllDetails(
-            this@CheckoutActivity, mCartItemsList
+            this@CheckoutActivity,
+            mCartItemsList
         )
     }
 

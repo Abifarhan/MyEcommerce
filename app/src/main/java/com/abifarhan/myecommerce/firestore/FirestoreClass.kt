@@ -478,16 +478,27 @@ class FirestoreClass {
             }
     }
 
-    fun placeOrder(checkoutActivity: CheckoutActivity, order: Order) {
+    fun placeOrder(activity: CheckoutActivity, order: Order) {
         mFireStore.collection(Constants.ORDERS)
             .document()
             .set(order, SetOptions.merge())
             .addOnSuccessListener {
-                checkoutActivity.orderPlacedSuccess()
+                activity.orderPlacedSuccess()
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while placing an order.",
+                    it
+                )
             }
     }
 
-    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<Cart>) {
+    fun updateAllDetails(
+        activity: CheckoutActivity,
+        cartList: ArrayList<Cart>
+    ) {
         val writeBatch = mFireStore.batch()
 
         for (cart in cartList) {
@@ -507,8 +518,9 @@ class FirestoreClass {
         }
 
         for (cart in cartList) {
-            val documentReference = mFireStore.collection(Constants.CART_ITEMS)
-                .document(cart.id)
+            val documentReference =
+                mFireStore.collection(Constants.CART_ITEMS)
+                    .document(cart.id)
             writeBatch.delete(documentReference)
         }
 
