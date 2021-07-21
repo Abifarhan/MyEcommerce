@@ -2,6 +2,7 @@ package com.abifarhan.myecommerce.view.ui.checkout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.ActivityCheckoutBinding
 import com.abifarhan.myecommerce.firestore.FirestoreClass
@@ -20,7 +21,6 @@ class CheckoutActivity : BaseActivity() {
 
     private var mAddressDetails: Address? = null
     private lateinit var mProductList: ArrayList<Product>
-
     private lateinit var mCartItemsList: ArrayList<Cart>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +95,18 @@ class CheckoutActivity : BaseActivity() {
 
     fun successCartItemsList(cartList: ArrayList<Cart>) {
         hideProgressDialog()
+//        mCartItemsList = cartList
+        for (product in mProductList) {
+            for (cart in cartList) {
+                if (product.product_id == cart.product_id) {
+                    cart.stock_quantity = product.stockQuantity
+                }
+            }
+        }
+
         mCartItemsList = cartList
+        binding.rvCartListItems.layoutManager =
+            LinearLayoutManager(this@CheckoutActivity)
+
     }
 }
