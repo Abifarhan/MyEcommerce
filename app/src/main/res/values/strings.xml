@@ -107,5 +107,6 @@
     <string name="lbl_payment_mode">Payment Mode</string>
     <string name="lbl_cash_on_delivery">Cash On Delivery</string>
     <string name="btn_lbl_place_order">PLACE ORDER</string>
+    <string name="no_orders_placed_yet">No orders placed yet!</string>
 
 </resources>

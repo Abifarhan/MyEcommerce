@@ -14,6 +14,7 @@ import com.abifarhan.myecommerce.view.ui.auth.login.LoginActivity
 import com.abifarhan.myecommerce.view.ui.auth.register.RegisterActivity
 import com.abifarhan.myecommerce.view.ui.checkout.CheckoutActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.dashboard.DashboardFragment
+import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.OrdersFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.orders.cart.list.CartListActivity
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.ProductsFragment
 import com.abifarhan.myecommerce.view.ui.dashboard.ui.product.addproduct.AddProductActivity
@@ -531,4 +532,24 @@ class FirestoreClass {
                 activity.hideProgressDialog()
             }
     }
+
+    fun getMyOrdersList(fragment: OrdersFragment) {
+        mFireStore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in it.documents) {
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+                fragment.populateOrdersListInUI(list)
+            }
+    }
+
+
 }

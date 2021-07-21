@@ -4,17 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.dashboard.ui.orders.OrdersFragment">
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/text_notifications"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_order_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.abifarhan.myecommerce.utils.MSPTextView
+        android:id="@+id/tv_no_orders_found"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:text="@string/no_orders_placed_yet"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/no_data_found_textSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

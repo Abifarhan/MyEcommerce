@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.abifarhan.myecommerce.R
 import com.abifarhan.myecommerce.databinding.FragmentOrdersBinding
+import com.abifarhan.myecommerce.firestore.FirestoreClass
+import com.abifarhan.myecommerce.model.Order
+import com.abifarhan.myecommerce.view.ui.base.BaseFragment
+import java.util.ArrayList
 
-class OrdersFragment : Fragment() {
+class OrdersFragment : BaseFragment() {
 
     private var _binding: FragmentOrdersBinding? = null
 
@@ -20,14 +25,44 @@ class OrdersFragment : Fragment() {
     ): View? {
 
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        binding.textNotifications.text = "This is Notification Fragment"
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun populateOrdersListInUI(ordersList: ArrayList<Order>) {
+        hideProgressDialog()
+
+        if (ordersList.size > 0) {
+            binding.rvMyOrderItems.visibility = View.VISIBLE
+            binding.tvNoOrdersFound.visibility = View.GONE
+
+            binding.rvMyOrderItems.layoutManager = LinearLayoutManager(activity)
+            binding.rvMyOrderItems.setHasFixedSize(true)
+
+            val myOrdersAdapter =
+                MyOrdersListAdapter(requireActivity(), ordersList)
+            binding.rvMyOrderItems.adapter = myOrdersAdapter
+        }
+        else{
+            binding.rvMyOrderItems.visibility = View.GONE
+            binding.tvNoOrdersFound.visibility = View.VISIBLE
+        }
+    }
+
+    private fun getMyOrdersList() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getMyOrdersList(
+            this@OrdersFragment
+        )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getMyOrdersList()
     }
 }
