@@ -163,7 +163,8 @@ class CheckoutActivity : BaseActivity() {
             mCartItemsList[0].image,
             mSubTotal.toString(),
             "10.0",
-            mTotalAmount.toString()
+            mTotalAmount.toString(),
+            System.currentTimeMillis()
         )
 
         FirestoreClass().placeOrder(

@@ -22,4 +22,7 @@
     <color name="colorThemeGreenGrey">#BAD99C</color>
     <color name="colorBorder">#CDCBCB</color>
     <color name="colorDarkGrey">#7A7979</color>
+    <color name="colorOrderStatusInProcess">#FF9800</color>
+    <color name="colorOrderStatusDelivered">#8BC34A</color>
+
 </resources>
