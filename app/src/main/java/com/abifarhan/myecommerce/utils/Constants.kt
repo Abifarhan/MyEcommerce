@@ -15,6 +15,7 @@ object Constants {
     const val ORDERS: String = "orders"
     const val STOCK_QUANTITY: String = "stockQuantity"
     const val EXTRA_MY_ORDER_DETAILS: String = "extra_MY_ORDER_DETAILS"
+    const val SOLD_PRODUCTS: String = "sold_products"
 
 
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"

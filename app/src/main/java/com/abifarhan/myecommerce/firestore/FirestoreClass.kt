@@ -498,11 +498,29 @@ class FirestoreClass {
 
     fun updateAllDetails(
         activity: CheckoutActivity,
-        cartList: ArrayList<Cart>
+        cartList: ArrayList<Cart>,
+        order: Order
     ) {
         val writeBatch = mFireStore.batch()
 
+
         for (cart in cartList) {
+            val soldProduct = SoldProduct(
+                cart.product_owner_id,
+                cart.title,
+                cart.price,
+                cart.cart_quantity,
+                cart.image,
+                order.title,
+                order.order_datetime,
+                order.sub_total_amount,
+                order.shipping_charge,
+                order.total_amount,
+                order.address
+            )
+        }
+        for (cart in cartList) {
+
 
             val productHashMap = HashMap<String, Any>()
 
