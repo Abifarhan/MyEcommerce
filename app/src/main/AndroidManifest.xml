@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyEcommerce">
-        <activity android:name=".view.ui.checkout.CheckoutActivity"
+        <activity android:name=".view.ui.dashboard.ui.orders.detail.MyOrderDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MyEcommerce.NoActionBar"/>
+        <activity
+            android:name=".view.ui.checkout.CheckoutActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MyEcommerce.NoActionBar" />
         <activity
